@@ -1,0 +1,345 @@
+﻿
+@{
+    ViewBag.Title = "FormOrder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<body style="margin-bottom: 100px">
+    <div class="container">
+        <h2 class="text-center mb-5">FORM ORDER MAKANAN</h2>
+        <div class="col-md-12">
+            @*No Order*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="NoOrder" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">No Order: </label>
+                    <input type="text" id="NoOrder" class="form-control" style="width: 100%;" readonly />
+                </div>
+            </div>
+            @*Pembuat*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Pembuat</label>
+                    <input type="text" id="UserLoginXd" class="form-control" style="width: 100%;" />
+                </div>
+            </div>
+            @*Tanggal Pembuatan*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="InsertApplyDate" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Tanggal Pembuatan Form:</label>
+                    <input type="date" id="TglBuatForm" class="form-control" style="width: 100%;" />
+                </div>
+            </div>
+            @*Department*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Department</label>
+                    <select id="Department" name="SalesArea" class="form-control" style="width: 100%;">
+                        <option selected value="PRODUKSI EFF COMPOUNDING">PRODUKSI EFF COMPOUNDING</option>
+                        <option value="PRODUKSI EFF FILLING">PRODUKSI EFF FILLING</option>
+                        <option value="PRODUKSI EFF PACKAGING">PRODUKSI EFF PACKAGING</option>
+                    </select>
+                </div>
+            </div>
+            @*Lokasi*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Lokasi</label>
+                    <select id="Lokasi" name="SalesArea" class="form-control" style="width: 100%;">
+                        <option selected value="PULOMAS">PULOMAS</option>
+                        <option value="PULOGADUNG">PULOGADUNG</option>
+                        <option value="DELTAMAS">DELTAMAS</option>
+                    </select>
+                </div>
+            </div>
+
+            @*PERIODE*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="from" style="display: flex; align-self: center; width: 200px;">Periode Makan: </label>
+
+                    <h6 style="margin-left: 40px; margin-top: 10px;">from</h6>
+
+                    <input type="date" class="form-control" id="StartPeriod" style="width: 40%; margin-left: 10px; height: 40px;" />
+
+                    <h6 style="margin-left: 10px; margin-top: 10px; vertical-align: middle;">to</h6>
+
+                    <input type="date" id="EndPeriod" class="form-control" style="width: 40%; margin-left: 10px; height: 40px;" />
+                </div>
+            </div>
+
+            @*Quantity*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Quantity</label>
+                    <input type="number" id="Quantity" class="form-control" style="width: 100%;" />
+                </div>
+            </div>
+            @*Shift*@
+            <div class="row">
+                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                    <label for="Shift" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Shift</label>
+                    <select id="Shift" name="SalesArea" class="form-control" style="width: 100%;">
+                        <option selected value="SHIFT1">SHIFT1</option>
+                        <option value="SHIFT2">SHIFT2</option>
+                        <option value="SHIFT3">SHIFT3</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newHeaderModal">New</button>
+            <button type="button" class="btn btn-success" id="BtnSaveOrder">Save</button>
+            <button type="button" class="btn btn-primary" id="BtnEdit">Edit</button>
+            <button type="button" class="btn btn-primary" id="BtnCancel">Cancel</button>
+            <button type="button" class="btn btn-danger" data-target="#exampleModal" data-toggle="modal" id="BtnDeleteHeader">Delete</button>
+            <button type="button" class="btn btn-primary" id="BtnRevisi">Revisi</button>
+        </div>
+        <br />
+
+        <!-- Modal New Header Form -->
+        <div class="modal fade" id="newHeaderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <div class="container d-flex pl-0">
+                            <h5 class="modal-title ml-2" id="exampleModalLabel">Make new Data?</h5>
+                        </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                    </div>
+                    <div class="modal-body">
+                        <p class="text-muted">Are you sure you want to make new data?</p>
+                    </div>
+                    <div class="modal-footer"> <button type="button" class="btn btn-light" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-primary" id="BtnNewOrder">New</button> </div>
+                </div>
+            </div>
+        </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box shadows">
+                <label for="Detail" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">DETAILS</label>
+                <div style="margin-top: 20px;">
+                    <div class="col-md-12">
+                        <table class="table" id="Table_Detail_Transaction" style="width:fit-content">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Tanggal</th>
+                                    <th>Hari</th>
+                                    <th>Quantity</th>
+                                    <th>Shift</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+
+
+</body>
+
+<script src="~/Content/Plugins/select2/js/select2.min.js" defer></script> <!--Defer => pengurutan script otomatis-->
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+<script src="~/Content/Assets/js/jquery.min.js"></script>
+<script src="~/Content/Plugins/datatables/jquery.dataTables.min.js" defer></script>
+
+<script>
+    function disableHeader() {
+        $('#UserLoginXd').prop('disabled', true);
+        $('#TglBuatForm').prop('disabled', true);
+        $('#Department').prop('disabled', true);
+        $('#Lokasi').prop('disabled', true);
+        $('#StartPeriod').prop('disabled', true);
+        $('#EndPeriod').prop('disabled', true);
+        $('#Quantity').prop('disabled', true);
+        $('#Shift').prop('disabled', true);
+    }
+
+    function newOrder() {
+        $('#UserLoginXd').removeAttr('disabled');
+        $('#TglBuatForm').removeAttr('disabled');
+        $('#Department').removeAttr('disabled');
+        $('#Lokasi').removeAttr('disabled');
+        $('#StartPeriod').removeAttr('disabled');
+        $('#EndPeriod').removeAttr('disabled');
+        $('#Quantity').removeAttr('disabled');
+        $('#Shift').removeAttr('disabled');
+    
+        //$('#ApplyDate').removeAttr('readonly');
+        //$('#Branch_DDL').removeAttr('disabled');
+        //$('#BtnEditAdjustment').removeAttr('disabled');
+        //$('#BtnSaveAdjustment').removeAttr('disabled');
+        //$('#BtnApproveHeader').removeAttr('disabled');
+        //$('#BtnDeleteHeader').removeAttr('disabled');
+        //$('#RemarksAdjustment').removeAttr('readonly');
+    }
+
+    function GetDate() {
+        var date = new Date();
+        //today.toLocaleString('default', { month: 'long' });
+
+        var day = date.getDate();
+        var month = date.getMonth() + 1;
+        var year = date.getFullYear();
+
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+
+        var today = year + "-" + month + "-" + day;
+
+        console.log(today);
+
+
+        document.getElementById('TglBuatForm').value = today;
+
+    }
+
+    function InsertOrder() {
+        var ordernum = $('#NoOrder').val();
+        var pembuat = $('#UserLoginXd').val();
+        var tanggalbuat = $('#TglBuatForm').val();
+        var department = $('#Department option:selected').val();
+        var lokasi = $('#Lokasi option:selected').val();
+        var periodeawal = $('#StartPeriod').val();
+        var periodeakhir = $('#EndPeriod').val();
+        var qty = $('#Quantity').val();
+        var shift = $('#Shift option:selected').val();
+
+        var object = {
+            OrderNum: ordernum,
+            Username: pembuat,
+            TanggalBuat: tanggalbuat,
+            Department: department,
+            Lokasi: lokasi,
+            StartPeriod: periodeawal,
+            EndPeriod: periodeakhir,
+            Quantity: qty,
+            Shift: shift
+
+        }
+
+        $.ajax({
+            url: 'InsertOrder',
+            type: 'post',
+            data: JSON.stringify(object),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            success: function (json) {
+                //let timerInterval
+                //Swal({
+                //    timer: 1600,
+                //    timerProgressBar: true,
+                //    icon: 'Success',
+                //    title: 'Insert Success!',
+                //    text: 'Insert Telah Berhasil Dilakukan',
+                //    didOpen: () => {
+                //        Swal.showLoading()
+                //        const b = Swal.getHtmlContainer().querySelector('b')
+                //        timerInterval = setInterval(() => {
+                //            b.textContent = Swal.getTimerLeft()
+                //        }, 100)
+                //    },
+                //    willClose: () => {
+                //        clearInterval(timerInterval)
+                //    }
+                //}).then((result) => {
+                //    /* Read more about handling dismissals below */
+                //    if (result.dismiss === Swal.DismissReason.timer) {
+                //        console.log('I was closed by the timer')
+                //    }
+                //});
+
+                alert('Insert Berhasil');
+                location.reload(true);
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+
+    }
+
+    function GetDetail() {
+        $.ajax({
+            url: 'GetDetailOrder',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (json) {
+                $('#Table_Detail_Transaction tbody').empty();
+
+                var table = $('#Table_Detail_Transaction').DataTable({
+                    "pageLength": 5,
+                    "autoWidth": false,
+                    "lengthChange": true,
+                    "data": json,
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "OMD_NO" },
+                        { "data": "OMD_TANGGAL" },
+                        { "data": "OMD_USERID" },
+                        { "data": "OMD_QUANTITY" },
+                        { "data": "OMD_SHIFT" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-primary editdetail' type='button' >EDIT</button>"
+                        }
+                    ],
+                    "order": [[1, 'asc']],
+
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    function GenerateOrderNumber() {
+        $.ajax({
+            url: "GenerateNoOrder",
+            type: "POST",
+            datatype: "json",
+            contentType: "application/json;charset=utf-8",
+            success: function (data) {
+                $('#NoOrder').val(data[0]);
+                console.log(data);
+            },
+            error: function (ex) {
+                //GetErrorInput("GenerateNoReqIDInput", JSON.stringify(ex));
+                alert(JSON.stringify(ex));
+                //GetErrorInput("GenerateNoReqIDInput", JSON.stringify(ex));
+            }
+        });
+    }
+
+    $(document).ready(function () {
+        disableHeader();
+        GetDetail();
+        $('#BtnNewOrder').click(function () {
+            GetDate();
+            GenerateOrderNumber();
+            $('#newHeaderModal').modal('hide');
+            $(".modal-backdrop").remove();
+            newOrder();
+        }); //Trigger Click Button New Adjustment
+
+        $('#BtnSaveOrder').click(function () {
+            InsertOrder();
+        }); //Trigger Click Button New Adjustment
+
+    });
+
+
+</script>
+
