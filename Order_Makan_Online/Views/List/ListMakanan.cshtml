@@ -1,0 +1,140 @@
+﻿
+@{
+    ViewBag.Title = "ListMakanan";
+}
+
+<link href="~/Content/Plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+
+<div class=" container-fluid" style="margin-top:11rem;justify-content:center">
+
+    <div class="Title" style="align-items:center;text-align:center">
+        <h3 style="font-weight:300">List Makanan</h3>
+    </div>
+    <br />
+
+    <div class="form-group row" style="text-align: center;align-content:center;align-items:center;justify-content:center">
+        <label class="col-sm-2 col-form-label">No Revisi</label>
+        <div class="col-sm-3">
+            <div class="basic-dropdown">
+                <div class="dropdown">
+                    <select id="listRevisi" name="listRevisi" style="width: 280px;"></select>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-sm-12" style="margin-top: 10px; margin-left: -15px; text-align: center; align-content: center; align-items: center; justify-content: center" id="divRevisi">
+        <table id="tblListRevisi" class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th style="width:20px">Nomor</th>
+                    <th id="thQCNum">Tanggal</th>
+                    <th id="thItemCode">Shift</th>
+                    <th id="thNoBatch">Quantity Sebelum</th>
+                    <th id="thNoWO">Quantity Sesudah</th>
+                </tr>
+            </thead>
+            <tbody id="tblListRevisiBody">
+            </tbody>
+        </table>
+    </div>
+
+
+</div>
+@*
+    Table*@
+<script src="~/Content/Scripts/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/Plugins/datatables/jquery.dataTables.min.js" defer></script>
+
+<script>
+    $(document).ready(function () {
+        GettblListRevisi();
+        GetDDLRevisi();
+
+        $("#listRevisi").change(function () {
+
+            GettblListRevisi();
+        });
+
+    });
+
+    function GetDDLRevisi() {
+        $.ajax({
+            url: 'GetDDLRevisi',
+            type: 'post',
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (json) {
+
+                $('#listRevisi').empty();
+                $('#listRevisi').prepend("<option value='All Number' selected='selected'>All Number</option>");
+                $('#listRevisi').prepend("<option value='' selected='selected'></option>");
+                console.log(json);
+                $.each(json,
+                    function (key, value) {
+                        $('#listRevisi').append(new Option(value.OMR_NO));
+                    });
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    function GettblListRevisi() {
+        var omr_no = $('#listRevisi').val();
+
+        var object = {
+            OMR_NO: omr_no,
+        }
+
+        $.ajax({
+            url: 'GettblListRevisi',
+            autoWidth: 'false',
+            type: 'post',
+            dataType: 'json',
+            data: JSON.stringify(object),
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (json) {
+                console.log(json);
+                $('#tblListRevisi tbody').empty();
+
+                var table = $('#tblListRevisi').DataTable({
+                    "pageLength": 10,
+                    "lengthChange": false,
+                    "searching": true,
+                    "data": json,
+                    "bDestroy": true,
+                    "select": true,
+                    "columns": [
+                        {
+                            "data": "OMR_NO"
+                        },
+                        { "data": "TANGGAL" },
+                        { "data": "OMR_SHIFT" },
+                        { "data": "OMR_QTY" },
+                        { "data": "OMR_QTYSBM" }
+
+                    ],
+                    "order": [[0, 'asc']],
+                    "columnDefs": [
+                        {
+                            "targets": '_all',
+                            "className": 'dt-center'
+                        }
+                    ]
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+
+
+    }
+</script>
