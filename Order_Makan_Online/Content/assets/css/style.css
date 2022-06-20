@@ -58,12 +58,16 @@ File: Main Css File
    Menu
  =============*/
 .container-fluid {
-  max-width: 95%;
+  max-width: 100%;
 }
 
-.wrapper {
+/*.wrapper {
   padding-top: 120px;
-}
+  padding-left:100px;
+  padding-right:100px;
+ 
+}*/
+
 
 .page-title-box {
   padding: 22px 0;
@@ -159,9 +163,11 @@ File: Main Css File
   float: left;
 }
 
-#topnav .navbar-custom {
-  background-color: #02c0ce;
-}
+    #topnav .navbar-custom {
+        /* background-color: #02c0ce;*/
+        background-color: #2E3192;
+       /* background-color: #7FC241;*/
+    }
 
 #topnav .navbar-toggle {
   border: 0;
@@ -198,17 +204,17 @@ File: Main Css File
   transition: all .5s ease;
 }
 
-#topnav .navbar-toggle span {
-  height: 2px;
-  width: 100%;
-  background-color: rgba(49, 58, 70, 0.8);
-  display: block;
-  margin-bottom: 5px;
-  -webkit-transition: -webkit-transform .5s ease;
-  transition: -webkit-transform .5s ease;
-  transition: transform .5s ease;
-  transition: transform .5s ease, -webkit-transform .5s ease;
-}
+    #topnav .navbar-toggle span {
+        height: 2px;
+        width: 100%;
+        background-color: rgba(49, 58, 70, 0.8);
+        display: block;
+        margin-bottom: 5px;
+        -webkit-transition: -webkit-transform .5s ease;
+        transition: -webkit-transform .5s ease;
+        transition: transform .5s ease;
+        transition: transform .5s ease, -webkit-transform .5s ease;
+    }
 
 #topnav .navbar-toggle.open span {
   position: absolute;

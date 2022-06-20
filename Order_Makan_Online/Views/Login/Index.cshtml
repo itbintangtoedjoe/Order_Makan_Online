@@ -1,0 +1,146 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Order Makan Online - Bintang Toedjoe</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" href="~/Content/Styles/images/favicon.png" />
+    <link href="~/Content/Scripts/plugins/sweetalert/css/sweetalert.css" rel="stylesheet" />
+    <link href="~/Content/Styles/css/style.css" rel="stylesheet" />
+    <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
+
+    <script>
+
+        $(document).ready(function () {
+            $('#txtPassword').keypress(function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    $('#btnLogin').click();
+                    return false;
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#btnLogin').attr("hidden", false);
+
+
+            $("#btnLogin").click(function () {
+                var UsernameGet = $('#txtUsername').val();
+                var PasswordGet = $('#txtPassword').val();
+                var dto = {
+                    UserAD: UsernameGet, Password: PasswordGet
+                };
+                if (UsernameGet == '' || UsernameGet == null || PasswordGet == '' || PasswordGet == null) {
+                    swal("Unverified!", "Username dan Password tidak boleh kosong", "error");
+                    return;
+                }
+
+                $('#btnLogin').attr("hidden", true);
+                $('#divLoading').attr("hidden", false);
+
+                $.ajax({
+                    url: "GetLogin",
+                    type: "post",
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        alert(data);
+                        if (data == true) {
+                            var url = "../Home/Index";
+                            $(location).attr('href', url);
+                     
+                        } else {
+                            var url = "../Login/Index";
+
+                            swal("Unverified!", data[0], "error");
+                            setTimeout(function () {
+                                $(location).attr('href', url);
+                            },200);
+                        }
+                    }, error: function (ex) {
+                        alert('Error aplikasi, silahkan hubungi administrator!');
+                        location.reload();
+                    }
+                });
+            });
+        });
+    </script>
+
+</head>
+
+<body class="h-100">
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="loader">
+            <svg class="circular" viewBox="25 25 50 50">
+                <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="3" stroke-miterlimit="10" />
+            </svg>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+    <div class="login-form-bg h-100">
+        <div class="container h-100">
+            <div class="row justify-content-center h-100">
+                <div class="col-xl-6">
+                    <div class="form-input-content">
+                        <div class="card login-form mb-0">
+                            <div class="card-body pt-5">
+                                <div style="text-align:center">
+                                    <img src="~/Content/Styles/images/logo-compact.png" />
+                                </div>
+                                <div style="text-align:center">
+                                    <h4>Order Makan Online</h4>
+                                </div>
+
+
+                                <form class="mt-5 mb-5 login-input">
+                                    <div class="form-group">
+                                        <input id="txtUsername" type="text" class="form-control" placeholder="Username">
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="txtPassword" type="password" class="form-control" placeholder="Password">
+                                    </div>
+                                    <div style="margin-left:42%" id="divLoading" hidden="hidden">
+                                        @*<img src="~/Content/Image/5.gif" />*@
+                                        <img src="~/Content/Styles/images/loader.gif" />
+                                    </div>
+                                    <button id="btnLogin" type="button" class="btn login-form__btn submit w-100">Sign In</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <script src="~/Content/Scripts/plugins/common/common.min.js"></script>
+    <script src="~/Content/Scripts/js/custom.min.js"></script>
+    <script src="~/Content/Scripts/js/settings.js"></script>
+    <script src="~/Content/Scripts/js/gleek.js"></script>
+    <script src="~/Content/Scripts/js/styleSwitcher.js"></script>
+    <script src="~/Content/Scripts/plugins/sweetalert/js/sweetalert.init.js"></script>
+    <script src="~/Content/Scripts/plugins/sweetalert/js/sweetalert.min.js"></script>
+</body>
+</html>
