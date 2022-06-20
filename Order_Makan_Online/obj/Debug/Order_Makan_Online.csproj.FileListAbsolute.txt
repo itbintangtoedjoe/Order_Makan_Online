@@ -109,7 +109,6 @@ C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\b
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\bin\Newtonsoft.Json.xml
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\bin\Antlr3.Runtime.pdb
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\obj\Debug\Order_Makan_Online.csproj.AssemblyReference.cache
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\obj\Debug\Order_Makan_Online.csproj.CoreCompileInputs.cache
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\obj\Debug\Order_Makan_Online.csproj.CopyComplete
 C:\Users\ignatius.kurniawan\source\repos\Order_Makan_Online\Order_Makan_Online\obj\Debug\Order_Makan_Online.dll
