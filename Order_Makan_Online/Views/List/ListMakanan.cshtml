@@ -7,124 +7,112 @@
 
 <div class=" container-fluid" style="margin-top:11rem;justify-content:center">
 
-    <div class="Title" style="align-items:center;text-align:center">
-        <h3 style="font-weight:300">List Makanan</h3>
-    </div>
-    <br />
 
-    <div class="form-group row" style="text-align: center;align-content:center;align-items:center;justify-content:center">
-        <label class="col-sm-2 col-form-label">No Revisi</label>
-        <div class="col-sm-3">
-            <div class="basic-dropdown">
-                <div class="dropdown">
-                    <select id="listRevisi" name="listRevisi" style="width: 280px;"></select>
+
+    @* List Makanan Table*@
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box shadows">
+
+                <div style="margin-top:2px;">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered" id="Table_List_Makanan" style="width:fit-content;margin:auto">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Tanggal</th>
+                                    <th>Department</th>
+                                    <th>Lokasi</th>
+                                    <th>Status</th>
+                                    <th>omh_alasan</th>
+                                    <th>omh_userid</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="col-sm-12" style="margin-top: 10px; margin-left: -15px; text-align: center; align-content: center; align-items: center; justify-content: center" id="divRevisi">
-        <table id="tblListRevisi" class="table table-striped table-bordered">
-            <thead>
-                <tr>
-                    <th style="width:20px">Nomor</th>
-                    <th id="thQCNum">Tanggal</th>
-                    <th id="thItemCode">Shift</th>
-                    <th id="thNoBatch">Quantity Sebelum</th>
-                    <th id="thNoWO">Quantity Sesudah</th>
-                </tr>
-            </thead>
-            <tbody id="tblListRevisiBody">
-            </tbody>
-        </table>
+    <!-- Modal For Delete data -->
+    <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <div class="container d-flex pl-0">
+                        <h5 class="modal-title ml-2" id="exampleModalLabel">Delete Detail Order ?</h5>
+                    </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-muted">Are you sure you want to Delete Detail Order?</p>
+                </div>
+                <div class="modal-footer"> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-success" data-dismiss="modal" id="BtnDelete">Delete</button> </div>
+            </div>
+        </div>
     </div>
-
-
 </div>
-@*
-    Table*@
+
+@*Table*@
 <script src="~/Content/Scripts/plugins/tables/js/jquery.dataTables.min.js"></script>
 <script src="~/Content/Plugins/datatables/jquery.dataTables.min.js" defer></script>
 
+
 <script>
-    $(document).ready(function () {
-        GettblListRevisi();
-        GetDDLRevisi();
-
-        $("#listRevisi").change(function () {
-
-            GettblListRevisi();
-        });
-
-    });
-
-    function GetDDLRevisi() {
-        $.ajax({
-            url: 'GetDDLRevisi',
-            type: 'post',
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-
-            success: function (json) {
-
-                $('#listRevisi').empty();
-                $('#listRevisi').prepend("<option value='All Number' selected='selected'>All Number</option>");
-                $('#listRevisi').prepend("<option value='' selected='selected'></option>");
-                console.log(json);
-                $.each(json,
-                    function (key, value) {
-                        $('#listRevisi').append(new Option(value.OMR_NO));
-                    });
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-
-        });
-    }
-
-    function GettblListRevisi() {
-        var omr_no = $('#listRevisi').val();
+    var noOrder = '';
+     function GetListMakanan() {
+         var username = '@Request.RequestContext.HttpContext.Session["Username"]';
+         //var omh_number = document.getElementById("Table_List_Makanan").rows[0].cells.item(0).innerHTML;
 
         var object = {
-            OMR_NO: omr_no,
+            Username: username
+            //omh_no=omh_number
         }
-
         $.ajax({
-            url: 'GettblListRevisi',
-            autoWidth: 'false',
+            url: 'GetListMakanan',
             type: 'post',
-            dataType: 'json',
             data: JSON.stringify(object),
+            dataType: 'json',
             contentType: 'application/json; charset=utf-8',
 
             success: function (json) {
-                console.log(json);
-                $('#tblListRevisi tbody').empty();
+                $('#Table_List_Makanan tbody').empty();
 
-                var table = $('#tblListRevisi').DataTable({
+                var table = $('#Table_List_Makanan').DataTable({
                     "pageLength": 10,
-                    "lengthChange": false,
-                    "searching": true,
+                    "autoWidth": false,
+                    "lengthChange": true,
                     "data": json,
-                    "bDestroy": true,
                     "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
                     "columns": [
-                        {
-                            "data": "OMR_NO"
-                        },
+                        { "data": "OMH_NO" },
                         { "data": "TANGGAL" },
-                        { "data": "OMR_SHIFT" },
-                        { "data": "OMR_QTY" },
-                        { "data": "OMR_QTYSBM" }
+                        { "data": "OMH_DEPT" },
+                        { "data": "OMH_LOKASI" },
+                        { "data": "STATUS" },
+                        { "data": "OMH_ALASAN_REJECT" },
+                        { "data": "OMH_USERID" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' >Edit</button>" +
+                                '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
 
+                        }
                     ],
-                    "order": [[0, 'asc']],
+                    "order": [[1, 'dsc']],
                     "columnDefs": [
+
                         {
                             "targets": '_all',
-                            "className": 'dt-center'
-                        }
+                            "className": 'dt-center',
+                            "width": "10%"
+                        },
+                        { 'visible': false, 'targets': [5,6] }
                     ]
                 });
 
@@ -134,7 +122,81 @@
             }
 
         });
-
-
     }
+
+    function DeleteOrder() {
+        var dictlist = {
+            Option: "DELETE",
+
+            OMH_NO:noOrder
+
+        }
+        var dto = {
+            Model: dictlist
+        }
+
+
+        $.ajax({
+            url: '../Form/DynamicController?spname=SP_DYNAMIC_CONTROLLER',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (json) {
+                swal({
+                    title: "Delete Success",
+                    text: "Success to Delete Order!",
+                    type: "success"
+                },
+                    function () {
+                        GetListMakanan();
+                    }
+                );
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+        var selectlist = false;
+
+    $(document).ready(function () {
+        GetListMakanan();
+
+        $('#Table_List_Makanan').on('click','tbody tr .selectlist' ,function () {
+            var rows = $(this).closest('tr');
+            selectlist = true;
+            var data = $('#Table_List_Makanan').DataTable().row(rows).data();
+
+
+            omh_no = $("TD", rows).eq(0).html();
+
+            //alert(omh_no)
+
+            //Set local storage
+         @*   localStorage.setItem("listmakanan", JSON.stringify(data));*@
+
+            window.location.href = ('../Form/FormOrder?ListMakananid=' + data["OMH_NO"] + '/' + data['STATUS']);
+        });
+
+        //Klik button Delete di modal Delete Detail
+        $('#BtnDelete').click(function () {
+            DeleteOrder();
+        });
+
+        //Klik button Delete di table detail
+        $('#Table_List_Makanan tbody').on('click', 'input[id="Delete"]', function () {
+            var row = $(this).closest("TR");
+            var table = $('#Table_List_Makanan').DataTable();
+            var tblrow = table.row(row).data();
+
+            noOrder = tblrow["OMH_NO"];
+        })
+
+
+    });
+
+
 </script>

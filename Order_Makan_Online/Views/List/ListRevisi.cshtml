@@ -8,14 +8,11 @@
 
 <div class=" container-fluid" style="margin-top:11rem;justify-content:center">
 
-    <div class="Title" style="align-items:center;text-align:center">
-        <h3 style="font-weight:300">List Revisi</h3>
-    </div>
-    <br />
+    
 
-    <div class="form-group row" style="text-align: center;align-content:center;align-items:center;justify-content:center">
+    <div class="form-group row" style="text-align: center;align-content:center;align-items:center;justify-content:flex-start">
         <label class="col-sm-2 col-form-label">No Revisi</label>
-        <div class="col-sm-3">
+        <div class="col-sm-1">
             <div class="basic-dropdown">
                 <div class="dropdown">
                     <select id="listRevisi" name="listRevisi" style="width: 280px;"></select>
@@ -67,7 +64,7 @@ Table*@
             contentType: 'application/json; charset=utf-8',
 
             success: function (json) {
-              
+
                 $('#listRevisi').empty();
                 $('#listRevisi').prepend("<option value='All Number' selected='selected'>All Number</option>");
                 $('#listRevisi').prepend("<option value='' selected='selected'></option>");
@@ -116,11 +113,11 @@ Table*@
                         },
                         { "data": "TANGGAL" },
                         { "data": "OMR_SHIFT" },
-                        { "data": "OMR_QTY" },
-                        { "data": "OMR_QTYSBM" }
+                        { "data": "OMR_QTYSBM" },
+                        { "data": "OMR_QTY" }
 
                     ],
-                    "order": [[0, 'asc']],
+                    "order": [[1, 'dsc']],
                     "columnDefs": [
                         {
                             "targets": '_all',

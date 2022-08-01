@@ -55,10 +55,19 @@
                     dataType: "json",
                     contentType: "application/json;charset=utf-8",
                     success: function (data) {
-                        alert(data);
+                        //alert(data);
                         if (data == true) {
                             var url = "../Home/Index";
-                            $(location).attr('href', url);
+                            swal({
+                                title: "Login Success!",
+                                text: "Anda Berhasil Login!",
+                                type: "success"
+                            },
+                                function () {
+                                    $(location).attr('href', url);
+                                }
+                            );
+                           
                      
                         } else {
                             var url = "../Login/Index";
@@ -69,8 +78,15 @@
                             },200);
                         }
                     }, error: function (ex) {
-                        alert('Error aplikasi, silahkan hubungi administrator!');
-                        location.reload();
+                        swal({
+                            title: "Password atau Username Anda Salah!",
+                            text: "Password atau Username Salah, Silahkan Input Ulang Password dan Username!",
+                            type: "error"
+                        },
+                            function () {
+                                location.reload();
+                            }
+                        );
                     }
                 });
             });

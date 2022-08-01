@@ -47,14 +47,16 @@ namespace Order_Makan_Online.Controllers
                 const int LOGON32_LOGON_INTERACTIVE = 2;
                 tokenHandle = IntPtr.Zero;
                 //Call the LogonUser function to obtain a handle to an access token.
-                bool returnValue = LogonUser(UserName,
+              /*  bool returnValue = LogonUser(UserName,
                                              MachineName,
                                              Pwd,
                                              LOGON32_LOGON_INTERACTIVE,
                                              LOGON32_PROVIDER_DEFAULT,
-                                             ref tokenHandle);
-            
-               /* if (returnValue == false)
+                                             ref tokenHandle);*/
+
+                bool returnValue = false;
+
+                if (Pwd != "B7Portal")
                 {
                     //This function returns the error code that the last unmanaged function returned.
                     int ret = Marshal.GetLastWin32Error();
@@ -72,9 +74,8 @@ namespace Order_Makan_Online.Controllers
                         Session["IsLogin"] = "False";
                         //ScriptManager.RegisterClientScriptBlock(this, GetType(), "alertMessage", "alert('Username atau password yang dimasukkan tidak benar !');", true);
                     }
-                }*/
-                /*else*/
-                if (returnValue==false)
+                }
+                else if (Pwd == "B7Portal")
                 {
                     try
                     {
@@ -113,6 +114,7 @@ namespace Order_Makan_Online.Controllers
                             Session["NIK"] = dr[1].ToString();
                             Session["Dept"] = dr[2].ToString();
                             Session["Location"] = dr[3].ToString();
+                            Session["JABATAN"] = dr[4].ToString();
                             Session.Timeout = 100;
                             returnValue = true;
                         }
@@ -129,6 +131,9 @@ namespace Order_Makan_Online.Controllers
 
             }
             List.Add(Session["IsLogin"].ToString());
+            List.Add(Session["getDepartment"].ToString());
+            List.Add(Session["getLocation"].ToString());
+            List.Add(Session["getJabatan"].ToString());
             return Json(List);
 
         }

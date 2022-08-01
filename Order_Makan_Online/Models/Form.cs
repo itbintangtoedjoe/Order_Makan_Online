@@ -10,14 +10,28 @@ namespace Order_Makan_Online.Models
     {
         public string Category { get; set; }
         public string OrderNum { get; set; }
+        public string RevOdr { get; set; }
+        public DateTime UserLastUpdate { get; set; }
+        public string OrderNumDetail { get; set; }
+        public string omh_no { get; set; }
+        public string omd_no { get; set; }
+
         public string Username { get; set; }
+        public string UserIdDetail { get; set; }
+        public string UserAD { get; set; }
         public DateTime TanggalBuat { get; set; }
+        public DateTime UserLastUpdateHeader { get; set; }
+        public DateTime UserLastUpdateDetail { get; set; }
+        public DateTime Omd_Tanggal { get; set; }
         public string Department { get; set; }
         public string Lokasi { get; set; }
         public DateTime StartPeriod { get; set; }
         public DateTime EndPeriod { get; set; }
         public int Quantity { get; set; }
+        public int QuantitySbm { get; set; }
         public string Shift { get; set; }
+        public string NIK { get; set; }
+        public string AlasanReject { get; set; }
 
 
     }

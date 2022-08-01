@@ -127,12 +127,15 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ListController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OutstandingController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\DapperModel.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\LoginuserModel.cs" />
+    <Compile Include="Models\Outstanding.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scripts\DataAccess\DataAccess.cs" />
   </ItemGroup>
@@ -162,6 +165,7 @@
     <Content Include="Content\assets\fonts\materialdesignicons-webfont.svg" />
     <Content Include="Content\assets\fonts\Simple-Line-Icons.svg" />
     <Content Include="Content\assets\fonts\slick.svg" />
+    <Content Include="Content\assets\images\approved.png" />
     <Content Include="Content\assets\images\attached-files\img-1.jpg" />
     <Content Include="Content\assets\images\attached-files\img-2.jpg" />
     <Content Include="Content\assets\images\attached-files\img-3.jpg" />
@@ -225,6 +229,7 @@
     <Content Include="Content\assets\images\LogoClaimOnline.png" />
     <Content Include="Content\assets\images\logo_light.png" />
     <Content Include="Content\assets\images\logo_sm.png" />
+    <Content Include="Content\assets\images\rejected.jpeg" />
     <Content Include="Content\assets\images\small\img-1.jpg" />
     <Content Include="Content\assets\images\small\img-2.jpg" />
     <Content Include="Content\assets\images\small\img-3.jpg" />
@@ -1094,13 +1099,12 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Form\FormOrder.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\List\ListMakanan.cshtml" />
     <Content Include="Views\List\ListRevisi.cshtml" />
+    <Content Include="Views\Outstanding\OutstandingApv.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

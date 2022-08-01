@@ -7,13 +7,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Web;
+using static Order_Makan_Online.Models.DapperModel;
 
 namespace ClaimOnline.Scripts.DataAccess
 {
     public class DataAccess
     {
 
-        readonly ConnectionStringSettings DBConString = ConfigurationManager.ConnectionStrings["NewB7"];
+        readonly ConnectionStringSettings DBConString = ConfigurationManager.ConnectionStrings["DB_ORDER_MAKANAN_ONLINE"];
         public string StoredProcedure(DynamicParameters parameters, String Spname)
         {
             string result;

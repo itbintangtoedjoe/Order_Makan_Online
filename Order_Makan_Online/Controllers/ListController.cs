@@ -116,5 +116,54 @@ namespace Order_Makan_Online.Controllers
             return Json(rows);
         }
 
+        public JsonResult GetListMakanan(Form model) 
+        {
+            string conSQL = connectionStringSettings.ConnectionString;
+            SqlDataAdapter dataAdapt = new SqlDataAdapter();
+            SqlConnection conn = new SqlConnection(conSQL);
+            List<string> ModelData = new List<string>();
+          
+            try
+            {
+                using (SqlCommand command = new SqlCommand("SP_GET_LIST_MAKANAN", conn))
+                {
+                    conn.Open();
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.Add("@Username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Username"].Value = model.Username;
+
+                    command.Parameters.Add("@OMH_NO", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@OMH_NO"].Value = model.omh_no;
+
+                    dataAdapt.SelectCommand = command;
+
+                    dataAdapt.Fill(dataTable);
+                    conn.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //Console.WriteLine(ex.Message);
+            }
+
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
+            foreach (DataRow dr in dataTable.Rows)
+            {
+                row = new Dictionary<string, object>();
+                foreach (DataColumn col in dataTable.Columns)
+                {
+                    row.Add(col.ColumnName, dr[col]);
+                }
+                rows.Add(row);
+            }
+
+            return Json(rows);
+        }
+
+     
+
+
     }
 }

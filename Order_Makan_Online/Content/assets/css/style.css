@@ -551,13 +551,13 @@ File: Main Css File
 
 /* Footer */
 .footer {
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  bottom: 0;
-  padding: 20px 0;
-  position: absolute;
-  right: 0;
-  background-color: #ffffff;
-  left: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    bottom: 0;
+    padding: 20px 0;
+    position: absolute;
+    right: 0;
+    background-color: #ffffff;
+    left: 0;
 }
 
 /* Search */
@@ -715,12 +715,15 @@ File: Main Css File
    Common
 ============= */
 body {
-  margin: 0;
-  padding-bottom: 60px;
-  overflow-x: hidden;
-  font-size: 14px;
-  background-color: #f3f6f8;
-  font-family: "Roboto", sans-serif;
+    position: relative;
+    min-height: 100%;
+    min-height: 100vh;
+    margin: 0;
+    padding-bottom: 60px;
+    overflow-x: hidden;
+    font-size: 14px;
+    background-color: #f3f6f8;
+    font-family: "Roboto", sans-serif;
 }
 
 html {
@@ -4417,8 +4420,9 @@ input[type="color"] {
 }
 
 th {
-  font-family: "Rubik", sans-serif;
-  font-weight: 500;
+    font-family: "Rubik", sans-serif;
+    font-weight: 500;
+    color:black;
 }
 
 .table-centered td {
@@ -4473,8 +4477,8 @@ div.dt-button-info h2 {
 }
 
 table.dataTable {
-  margin-top: 10px !important;
-  margin-bottom: 18px !important;
+    margin-top: 10px !important;
+    margin-bottom: 18px !important;
 }
 
 .table-bordered.dataTable > thead > tr > td, .table-bordered.dataTable > thead > tr > th {
@@ -4486,7 +4490,7 @@ table.dataTable {
 }
 
 table.dataTable th.focus, table.dataTable td.focus {
-  outline: 2px solid #02c0ce !important;
+  outline: 10px solid #02c0ce !important;
   outline-offset: -1px;
   background-color: rgba(2, 192, 206, 0.15);
 }

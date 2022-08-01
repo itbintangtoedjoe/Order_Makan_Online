@@ -1,0 +1,139 @@
+﻿
+@{
+    ViewBag.Title = "OutstandingApv";
+}
+
+<link href="~/Content/Plugins/datatables/jquery.dataTables.min.css" rel="stylesheet" />
+
+<div class=" container-fluid" style="margin-top:11rem;justify-content:center">
+
+   
+
+    @* Pending Task Table*@
+    <div class="row">
+        <div class="col-12">
+            <div class="card-box shadows">
+
+                <div style="margin-top:2px;">
+                    <div class="col-md-12">
+                        <table class="table table-striped table-bordered" id="Table_Pending_Task" style="width:fit-content;margin:auto">
+                            <thead>
+                                <tr>
+                                    <th>Number</th>
+                                    <th>Tanggal</th>
+                                    <th>Department</th>
+                                    <th>Lokasi</th>
+                                    <th>UserID</th>
+                                    <th>omh_status</th>
+                                    <th>omh_alasan</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="omhstatus"></div>
+
+
+</div>
+@*
+    Table*@
+<script src="~/Content/Scripts/plugins/tables/js/jquery.dataTables.min.js"></script>
+<script src="~/Content/Plugins/datatables/jquery.dataTables.min.js" defer></script>
+
+<script>
+     function GetOutStandingTable() {
+         var username = '@Request.RequestContext.HttpContext.Session["Username"]';
+         var jabatan = '@Request.RequestContext.HttpContext.Session["JABATAN"]';
+         var omh_status = '';
+      @*   var nik= '@Request.RequestContext.HttpContext.Session["NIK"]';*@
+
+        var object = {
+            Username: username,
+            Jabatan: jabatan
+           @* NIK:nik*@
+        }
+        $.ajax({
+            url: 'GetOutStandingTable',
+            type: 'post',
+            data: JSON.stringify(object),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+
+            success: function (json) {
+                $('#Table_Pending_Task tbody').empty();
+
+                var table = $('#Table_Pending_Task').DataTable({
+                    "pageLength": 10,
+                    "autoWidth": false,
+                    "lengthChange": true,
+                    "data": json,
+                    "select": true,
+                    "bDestroy": true,
+                    "scrollCollapse": true,
+                    "columns": [
+                        { "data": "OMH_NO" },
+                        { "data": "TANGGAL" },
+                        { "data": "OMH_DEPT" },
+                        { "data": "OMH_LOKASI" },
+                        { "data": "OMH_USERID" },
+                        { "data": "OMH_STATUS" },
+                        { "data": "OMH_ALASAN_REJECT" },
+                        {
+                            "data": null,
+                            "defaultContent": "<button class='btn btn-primary select' type='button' >Select</button>"
+
+                        }
+                    ],
+                    "order": [[1, 'dsc']],
+                    "columnDefs": [
+
+                        {
+                            "targets": '_all',
+                            "className": 'dt-center',
+                            "width": "10%"
+                        },
+                        { 'visible': false, 'targets': [4,5,6] }
+                    ]
+                });
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    var selectoutstanding = false;
+
+    $(document).ready(function () {
+        GetOutStandingTable();
+
+        $('#Table_Pending_Task').on('click',
+            'tbody tr .select',
+            function () {
+                var rows = $(this).closest('tr');
+                selectoutstanding = true;
+                var data = $('#Table_Pending_Task').DataTable().row(rows).data();
+
+                //Set local storage
+               @* localStorage.setItem("outstandangapv", JSON.stringify(data));*@
+
+                window.location.href = ('../Form/FormOrder?OutstandingApvid=' + data["OMH_NO"]);
+            });
+
+
+    });
+
+
+
+
+</script>
+
