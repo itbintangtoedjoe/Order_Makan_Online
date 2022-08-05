@@ -129,12 +129,13 @@ namespace Order_Makan_Online.Controllers
                 {
                     conn.Open();
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.Add("@Username", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@Username"].Value = model.Username;
+                    command.Parameters.Add("@DEPT", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@DEPT"].Value = model.Department;
 
                     command.Parameters.Add("@OMH_NO", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@OMH_NO"].Value = model.omh_no;
 
+                    
                     dataAdapt.SelectCommand = command;
 
                     dataAdapt.Fill(dataTable);

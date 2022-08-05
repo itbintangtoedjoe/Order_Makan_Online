@@ -132,6 +132,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\DapperModel.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\Form.cs" />
     <Compile Include="Models\ListModel.cs" />
     <Compile Include="Models\LoginuserModel.cs" />

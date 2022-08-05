@@ -25,7 +25,7 @@
                                     <th>Lokasi</th>
                                     <th>Status</th>
                                     <th>omh_alasan</th>
-                                    <th>omh_userid</th>
+                                    <th>Pembuat</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -63,12 +63,15 @@
 
 <script>
     var noOrder = '';
+    var getPembuat = '@Session["Username"]';
      function GetListMakanan() {
-         var username = '@Request.RequestContext.HttpContext.Session["Username"]';
+         var dept = '@Request.RequestContext.HttpContext.Session["Dept"]';
+
+
          //var omh_number = document.getElementById("Table_List_Makanan").rows[0].cells.item(0).innerHTML;
 
         var object = {
-            Username: username
+            Department:dept
             //omh_no=omh_number
         }
         $.ajax({
@@ -99,20 +102,27 @@
                         { "data": "OMH_USERID" },
                         {
                             "data": null,
-                            "defaultContent": "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' >Edit</button>" +
-                                '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
-
+                            
+                            "render": function (data) {
+                                if (data.OMH_USERID == getPembuat) {
+                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' >Edit</button>" +
+                                        '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
+                                } else {
+                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' disabled >Edit</button>" +
+                                        '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" disabled />'
+                                }
+                            }
                         }
                     ],
-                    "order": [[1, 'dsc']],
+                    "order": [[0, 'dsc']],
                     "columnDefs": [
 
                         {
                             "targets": '_all',
                             "className": 'dt-center',
-                            "width": "10%"
+                            "width": "5%"
                         },
-                        { 'visible': false, 'targets': [5,6] }
+                        { 'visible': false, 'targets': [5] }
                     ]
                 });
 
@@ -164,6 +174,7 @@
 
     $(document).ready(function () {
         GetListMakanan();
+        $('.Delete').prop('disabled', false); //TO ENABLE
 
         $('#Table_List_Makanan').on('click','tbody tr .selectlist' ,function () {
             var rows = $(this).closest('tr');

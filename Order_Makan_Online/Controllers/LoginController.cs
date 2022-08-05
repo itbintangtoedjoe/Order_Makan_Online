@@ -134,6 +134,7 @@ namespace Order_Makan_Online.Controllers
             List.Add(Session["getDepartment"].ToString());
             List.Add(Session["getLocation"].ToString());
             List.Add(Session["getJabatan"].ToString());
+            List.Add(Session["getPembuat"].ToString());
             return Json(List);
 
         }
