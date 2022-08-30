@@ -7,7 +7,7 @@
     <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description" />
     <meta content="Coderthemes" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
+    @*<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">*@
     <!-- App favicon -->
     <link rel="shortcut icon" href="~/Content/assets/images/favicon.ico">
 
@@ -148,11 +148,11 @@
                                 <li>
                                     <ul>
                                         <li>
-                                            <a href="http://10.101.3.114/Reports/Pages/Report.aspx?ItemPath=%2fIntranet-Reports%2fGA%2fReportMakanGA">Report Makan</a>
+                                            <a href="http://10.101.3.114/Reports/Pages/Report.aspx?ItemPath=%2fIntranet-Reports%2fGA%2fReportMakanGA" target="_blank">Report Makan</a>
                                         </li>
 
                                         <li>
-                                            <a href="http://10.101.3.114/Reports/Pages/Report.aspx?ItemPath=%2fIntranet-Reports%2fGA%2fReportMakanGA2">Report Bulanan</a>
+                                            <a href="http://10.101.3.114/Reports/Pages/Report.aspx?ItemPath=%2fIntranet-Reports%2fGA%2fReportMakanGA2" target="_blank">Report Bulanan</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -250,7 +250,7 @@
     var IsLogin = '@Session["Username"]';
     var timeInSecondsAfterSessionOut = 10; // change this to change session time out (in seconds).
     var secondTick = 0;
-    var testTime = 1500;//@(Session.Timeout) * 60;
+    var testTime = 3000;//@(Session.Timeout) * 60;
 
     //Check jika user sudah login atau tidak, kalo tidak login muncul swal berisi unverified
     function CheckIsLogin() {
@@ -352,7 +352,7 @@
             });
             setTimeout(function () {
                 $(location).attr('href', url);
-            }, 1000);
+            }, 1500);
         });
     });
 

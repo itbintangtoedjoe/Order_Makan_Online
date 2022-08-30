@@ -97,19 +97,40 @@
                         { "data": "TANGGAL" },
                         { "data": "OMH_DEPT" },
                         { "data": "OMH_LOKASI" },
-                        { "data": "STATUS" },
+                        {
+                            "data": "STATUS",
+                            "render": function (data, meta) {
+                                if (data == "REVISE") {
+                                    return '<label style="text-align:center;color:red">REVISE</label>'
+                                } else if (data == "APPROVED") {
+                                    return '<label style="text-align:center;color:#00FF00">APPROVED</label>'
+                                } else if (data == "SUBMITTED") {
+                                    return '<label style="text-align:center;color:black;font-weight:450;">SUBMITTED</label>'
+                                }
+                            }
+                        },
                         { "data": "OMH_ALASAN_REJECT" },
                         { "data": "OMH_USERID" },
                         {
                             "data": null,
                             
                             "render": function (data) {
-                                if (data.OMH_USERID == getPembuat) {
-                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' >Edit</button>" +
-                                        '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
-                                } else {
-                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange; margin-right: 5px;width:3vw' id='selectlist' type='button' disabled >Edit</button>" +
-                                        '<input type="button" class="btn btn-danger"style="width:3vw" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" disabled />'
+                                if (data.OMH_USERID == getPembuat && data.STATUS == "APPROVED") {
+                                    return "<button class='btn btn-primary selectlist'  style=margin-right: 5px;width:30px' id='selectlist' type='button' >View</button> " +
+                                        '<input type="button" class="btn btn-danger"style="width:40px;text-align:center;margin-left:3px" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static" hidden  value="Delete"  />'
+                                }
+                                else if (data.OMH_USERID == getPembuat && data.STATUS == "SUBMITTED") {
+                                    return "<button class='btn btn-primary selectlist'  style=margin-right: 5px;width:30px' id='selectlist' type='button' >View</button>" +
+                                        '<input type="button" class="btn btn-danger"style="width:40px;text-align:center;margin-left:4px"  id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static" hidden  value="Delete" />'
+                                }
+
+                                else if (data.OMH_USERID == getPembuat && data.STATUS == "REVISE") {
+                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange;width:30px' id='selectlist' type='button' >Edit</button> " +
+                                        '<input type="button" class="btn btn-danger"style="width:40px;text-align:center;" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static" value="Delete"  />'
+                                }
+                                else {
+                                    return "<button class='btn btn-primary selectlist'  style='background-color: orange;width:30px' id='selectlist' type='button' hidden >Edit</button> " +
+                                        '<input type="button" class="btn btn-danger"style="width:40px;text-align:center;" id="Delete" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static" value="Delete" hidden />'
                                 }
                             }
                         }

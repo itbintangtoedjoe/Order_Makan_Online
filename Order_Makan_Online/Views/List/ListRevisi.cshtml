@@ -15,7 +15,8 @@
         <div class="col-sm-1">
             <div class="basic-dropdown">
                 <div class="dropdown">
-                    <select id="listRevisi" name="listRevisi" style="width: 280px;"></select>
+                    <select id="listRevisi" name="listRevisi" style="width: 280px;">
+                    </select>
                 </div>
             </div>
         </div>
@@ -30,6 +31,7 @@
                     <th id="thItemCode">Shift</th>
                     <th id="thNoBatch">Quantity Sebelum</th>
                     <th id="thNoWO">Quantity Sesudah</th>
+                    <th id="lastupdate">Last Update</th>
                 </tr>
             </thead>
             <tbody id="tblListRevisiBody">
@@ -45,16 +47,7 @@ Table*@
 <script src="~/Content/Plugins/datatables/jquery.dataTables.min.js" defer></script>
 
 <script>
-    $(document).ready(function () {
-        GettblListRevisi();
-        GetDDLRevisi();
-
-        $("#listRevisi").change(function () {
-
-            GettblListRevisi();
-        });
-
-    });
+  
 
     function GetDDLRevisi() {
         $.ajax({
@@ -64,10 +57,10 @@ Table*@
             contentType: 'application/json; charset=utf-8',
 
             success: function (json) {
-
                 $('#listRevisi').empty();
+                
                 $('#listRevisi').prepend("<option value='All Number' selected='selected'>All Number</option>");
-                $('#listRevisi').prepend("<option value='' selected='selected'></option>");
+                $('#listRevisi').prepend("<option value='' selected='selected' disabled>Select your option</option>");
                 console.log(json);
                 $.each(json,
                     function (key, value) {
@@ -114,15 +107,17 @@ Table*@
                         { "data": "TANGGAL" },
                         { "data": "OMR_SHIFT" },
                         { "data": "OMR_QTYSBM" },
-                        { "data": "OMR_QTY" }
+                        { "data": "OMR_QTY" },
+                        { "data": "OMR_LASTUPDATE" }
 
                     ],
-                    "order": [[1, 'dsc']],
+                    "order": [[5, 'dsc']],
                     "columnDefs": [
                         {
                             "targets": '_all',
                             "className": 'dt-center'
-                        }
+                        },
+                        { 'visible': false, 'targets': [5] }
                     ]
                 });
 
@@ -135,4 +130,15 @@ Table*@
 
 
     }
+
+    $(document).ready(function () {
+        GettblListRevisi();
+        GetDDLRevisi();
+
+        $("#listRevisi").change(function () {
+
+            GettblListRevisi();
+        });
+
+    });
 </script>

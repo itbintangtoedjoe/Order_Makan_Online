@@ -17,82 +17,6 @@
     <link href="~/Content/Styles/css/style.css" rel="stylesheet" />
     <script src="~/Content/Scripts/plugins/jquery/jquery.min.js"></script>
 
-    <script>
-
-        $(document).ready(function () {
-            $('#txtPassword').keypress(function (e) {
-                var key = e.which;
-                if (key == 13)  // the enter key code
-                {
-                    $('#btnLogin').click();
-                    return false;
-                }
-            });
-        });
-
-        $(document).ready(function () {
-            $('#btnLogin').attr("hidden", false);
-
-
-            $("#btnLogin").click(function () {
-                var UsernameGet = $('#txtUsername').val();
-                var PasswordGet = $('#txtPassword').val();
-                var dto = {
-                    UserAD: UsernameGet, Password: PasswordGet
-                };
-                if (UsernameGet == '' || UsernameGet == null || PasswordGet == '' || PasswordGet == null) {
-                    swal("Unverified!", "Username dan Password tidak boleh kosong", "error");
-                    return;
-                }
-
-                $('#btnLogin').attr("hidden", true);
-                $('#divLoading').attr("hidden", false);
-
-                $.ajax({
-                    url: "GetLogin",
-                    type: "post",
-                    data: JSON.stringify(dto),
-                    dataType: "json",
-                    contentType: "application/json;charset=utf-8",
-                    success: function (data) {
-                        //alert(data);
-                        if (data == true) {
-                            var url = "../Home/Index";
-                            swal({
-                                title: "Login Success!",
-                                text: "Anda Berhasil Login!",
-                                type: "success"
-                            },
-                                function () {
-                                    $(location).attr('href', url);
-                                }
-                            );
-                           
-                     
-                        } else {
-                            var url = "../Login/Index";
-
-                            swal("Unverified!", data[0], "error");
-                            setTimeout(function () {
-                                $(location).attr('href', url);
-                            },200);
-                        }
-                    }, error: function (ex) {
-                        swal({
-                            title: "Password atau Username Anda Salah!",
-                            text: "Password atau Username Salah, Silahkan Input Ulang Password dan Username!",
-                            type: "error"
-                        },
-                            function () {
-                                location.reload();
-                            }
-                        );
-                    }
-                });
-            });
-        });
-    </script>
-
 </head>
 
 <body class="h-100">
@@ -147,6 +71,96 @@
         </div>
     </div>
 
+    <script>
+
+        $(document).ready(function () {
+            $('#txtPassword').keypress(function (e) {
+                var key = e.which;
+                if (key == 13)  // the enter key code
+                {
+                    $('#btnLogin').click();
+                    return false;
+                }
+            });
+        });
+
+        $(document).ready(function () {
+            $('#btnLogin').attr("hidden", false);
+
+
+            $("#btnLogin").click(function () {
+                var UsernameGet = $('#txtUsername').val();
+                var PasswordGet = $('#txtPassword').val();
+                var dto = {
+                    UserAD: UsernameGet, Password: PasswordGet
+                };
+                if (UsernameGet == '' || UsernameGet == null || PasswordGet == '' || PasswordGet == null) {
+                    swal({
+                        title: "Password atau Username Tidak Boleh Kosong!",
+                        type: "error",
+                        showConfirmButton: !1
+                    });
+                    setTimeout(function () {
+                        location.reload();
+                    }, 1000);
+
+
+                }
+
+
+
+                $('#btnLogin').attr("hidden", true);
+                $('#divLoading').attr("hidden", false);
+
+                $.ajax({
+                    url: "GetLogin",
+                    type: "post",
+                    data: JSON.stringify(dto),
+                    dataType: "json",
+                    contentType: "application/json;charset=utf-8",
+                    success: function (data) {
+                        //alert(data);
+                        if (data == "True") {
+                            var url = "../Home/Index";
+                            swal({
+                                title: "Login Success!",
+                                text: "Anda Berhasil Login!",
+                                type: "success",
+                                showConfirmButton: !1
+                            });
+                            setTimeout(function () {
+                                $(location).attr('href', url);
+                            }, 1000);
+
+                        } else {
+                            var url = "../Login/Index";
+
+                            swal({
+                                title: "Password atau Username Anda Salah!",
+                                text: "Password atau Username Salah, Silahkan Input Ulang Password dan Username!",
+                                type: "error",
+                                showConfirmButton: !1
+                            });
+                            setTimeout(function () {
+                                location.reload();
+                            }, 1000);
+                        }
+                    }, error: function (ex) {
+                        swal({
+                            title: "Password atau Username Anda Salah!",
+                            text: "Password atau Username Salah, Silahkan Input Ulang Password dan Username!",
+                            type: "error",
+                            showConfirmButton: !1
+                        });
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1000);
+
+                    }
+                });
+            });
+        });
+    </script>
 
     <!--**********************************
         Scripts

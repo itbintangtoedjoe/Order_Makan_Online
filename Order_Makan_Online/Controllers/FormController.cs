@@ -15,6 +15,8 @@ using System.Net.Mail;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using static Order_Makan_Online.Models.EmailModel;
+using System.Net;
+using RestSharp;
 
 namespace Order_Makan_Online.Controllers
 {
@@ -29,7 +31,6 @@ namespace Order_Makan_Online.Controllers
         {
             return View();
         }
-
         public ActionResult GenerateNoOrder(Form Model)
         {
             string result; ;
@@ -60,121 +61,6 @@ namespace Order_Makan_Online.Controllers
             ModelData.Add(result);
             return Json(ModelData);
         }
-
-        public JsonResult InsertHeaderOrder(Form model)
-        {
-            string conSQL = connectionStringSettings.ConnectionString;
-            SqlDataAdapter dataAdapt = new SqlDataAdapter();
-            SqlConnection conn = new SqlConnection(conSQL);
-            List<string> ModelData = new List<string>();
-            string result;
-
-            try
-            {
-                using (SqlCommand command = new SqlCommand("SP_INSERT_ORDER_MAKAN", conn))
-                {
-                    conn.Open();
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@NoOrder", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@NoOrder"].Value = model.OrderNum;
-
-                    command.Parameters.Add("@Username", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@Username"].Value = model.Username;
-
-                    command.Parameters.Add("@TanggalBuat", System.Data.SqlDbType.DateTime);
-                    command.Parameters["@TanggalBuat"].Value = model.TanggalBuat;
-
-                    command.Parameters.Add("@Department", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Department"].Value = model.Department;
-
-                    command.Parameters.Add("@Lokasi", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Lokasi"].Value = model.Lokasi;
-
-                    command.Parameters.Add("@UserLastUpdate", System.Data.SqlDbType.DateTime);
-                    command.Parameters["@UserLastUpdate"].Value = model.UserLastUpdate;
-
-                    /*  command.Parameters.Add("@TanggalClosing", System.Data.SqlDbType.DateTime);
-                      command.Parameters["@TanggalClosing"].Value = model.EndPeriod;
-
-                      command.Parameters.Add("@Quantity", System.Data.SqlDbType.Int);
-                      command.Parameters["@Quantity"].Value = model.Quantity;
-
-                      command.Parameters.Add("@Shift", System.Data.SqlDbType.NVarChar);
-                      command.Parameters["@Shift"].Value = model.Shift;*/
-
-                    result = (string)command.ExecuteScalar();
-                    conn.Close();
-                    ModelData.Add(result);
-                    conn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                //Console.WriteLine(ex.Message);
-            }
-
-            return Json(ModelData);
-        }
-
-        public JsonResult InsertDetailOrder(Form model)
-        {
-            string conSQL = connectionStringSettings.ConnectionString;
-            SqlDataAdapter dataAdapt = new SqlDataAdapter();
-            SqlConnection conn = new SqlConnection(conSQL);
-            List<string> ModelData = new List<string>();
-            string result;
-
-            try
-            {
-                using (SqlCommand command = new SqlCommand("SP_INSERT_ORDER_MAKAN_DETAIL", conn))
-                {
-                    conn.Open();
-                    command.CommandType = CommandType.StoredProcedure;
-
-                    command.Parameters.Add("@NoOrder", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@NoOrder"].Value = model.OrderNum;
-
-                    command.Parameters.Add("@UserID", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@UserID"].Value = model.Username;
-
-                   /* command.Parameters.Add("@Department", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Department"].Value = model.Department;
-
-                    command.Parameters.Add("@Lokasi", System.Data.SqlDbType.VarChar);
-                    command.Parameters["@Lokasi"].Value = model.Lokasi;
-*/
-                    command.Parameters.Add("@UserLastUpdate", System.Data.SqlDbType.DateTime);
-                    command.Parameters["@UserLastUpdate"].Value = model.UserLastUpdate;
-
-                    command.Parameters.Add("@OMD_Tanggal", System.Data.SqlDbType.DateTime);
-                    command.Parameters["@OMD_Tanggal"].Value = model.StartPeriod;
-
-                    command.Parameters.Add("@TanggalClosing", System.Data.SqlDbType.DateTime);
-                    command.Parameters["@TanggalClosing"].Value = model.EndPeriod;
-
-                    command.Parameters.Add("@Quantity", System.Data.SqlDbType.Int);
-                    command.Parameters["@Quantity"].Value = model.Quantity;
-
-                    command.Parameters.Add("@Shift", System.Data.SqlDbType.NVarChar);
-                    command.Parameters["@Shift"].Value = model.Shift;
-
-                    result = (string)command.ExecuteScalar();
-                    conn.Close();
-                    ModelData.Add(result);
-                    conn.Close();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-                //Console.WriteLine(ex.Message);
-            }
-
-            return Json(ModelData);
-        }
-
         public JsonResult InsertCreateOrderForm(Form model)
         {
             string conSQL = connectionStringSettings.ConnectionString;
@@ -229,9 +115,12 @@ namespace Order_Makan_Online.Controllers
                     command.Parameters.Add("@Shift", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@Shift"].Value = model.Shift;
 
+                    command.Parameters.Add("@Option", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Option"].Value = "Insert Detail From Database";
+
+
 
                     result = (string)command.ExecuteScalar();
-                    conn.Close();
                     ModelData.Add(result);
                     conn.Close();
                 }
@@ -288,8 +177,6 @@ namespace Order_Makan_Online.Controllers
 
             return Json(rows);
         }
-
-
         public JsonResult UpdateOrderDetail(Form model)
         {
             string conSQL = connectionStringSettings.ConnectionString;
@@ -536,6 +423,8 @@ namespace Order_Makan_Online.Controllers
             string conSQL = connectionStringSettings.ConnectionString;
             SqlConnection conn = new SqlConnection(conSQL);
             List<string> ModelData = new List<string>();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
             string result;
 
             try
@@ -547,10 +436,54 @@ namespace Order_Makan_Online.Controllers
                     command.Parameters.Add("@NoOrder", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@NoOrder"].Value = model.OrderNum;
 
+                    command.Parameters.Add("@Dept", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Dept"].Value = model.Department;
+
+
                     result = (string)command.ExecuteScalar();
-                    conn.Close();
                     ModelData.Add(result);
                     conn.Close();
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+
+                
+                    foreach (DataRow dr in DT.Rows)
+                    {
+                        row = new Dictionary<string, object>();
+                        foreach (DataColumn col in DT.Columns)
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+
+                        rows.Add(row);
+                    }
+                    conn.Close();
+
+                    for(int i = 0; i < rows.Count; i++) {
+                        MailModel objsend = new MailModel();
+                        objsend.mailPriority = "High";
+                        objsend.isHtml = true;
+                        objsend.mailSubject = "Permohonan Order Makan";
+                        objsend.mailBody =
+                                       "<label>No Order: <b> " + model.OrderNum + " </b></label> <p style: color:black>Silahkan klik link berikut untuk melihat informasi lebih lanjut.</p>" +
+                                       "<a href='https://localhost:44312/Login/Index'>Click Here! <a>" +
+                                       "<br/>" +
+                                       "<hr />" +
+                                       " <i>Email ini tergenerate oleh system</i>" +
+                                       "<br/>" +
+                                       "<i>IntranetPortal - PT Bintang Toedjoe</i>";
+                        //objsend.mailTo = (string)rows[i]["EMAIL"];
+                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailCC = null;
+                        objsend.mailBCC = null;
+
+                        SendMail(objsend);
+                    }
+
+                   
+                    
+
                 }
             }
             catch (Exception ex)
@@ -567,6 +500,8 @@ namespace Order_Makan_Online.Controllers
             string conSQL = connectionStringSettings.ConnectionString;
             SqlConnection conn = new SqlConnection(conSQL);
             List<string> ModelData = new List<string>();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
             string result;
 
             try
@@ -581,10 +516,58 @@ namespace Order_Makan_Online.Controllers
                     command.Parameters.Add("@NIK", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@NIK"].Value = model.NIK;
 
+                    command.Parameters.Add("@Dept", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Dept"].Value = model.Department;
+
+                    command.Parameters.Add("@Username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Username"].Value = model.Username;
+
+
                     result = (string)command.ExecuteScalar();
-                    conn.Close();
                     ModelData.Add(result);
                     conn.Close();
+
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+
+
+                    foreach (DataRow dr in DT.Rows)
+                    {
+                        row = new Dictionary<string, object>();
+                        foreach (DataColumn col in DT.Columns)
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+
+                        rows.Add(row);
+                    }
+                    conn.Close();
+
+                    for (int i = 0; i < rows.Count; i++)
+                    {
+                        MailModel objsend = new MailModel();
+                        objsend.mailPriority = "High";
+                        objsend.isHtml = true;
+                        objsend.mailSubject = "Persetujuan Order Makan";
+                        objsend.mailBody =
+                                       "<label>No Order: <b> " + model.OrderNum + " </b></label> <p style: color:black>Silahkan klik link berikut untuk melihat informasi lebih lanjut.</p>" +
+                                       "<a href='https://localhost:44312/Login/Index'>Click Here! <a>" +
+                                       "<br/>" +
+                                       "<hr />" +
+                                       " <i>Email ini tergenerate oleh system</i>" +
+                                       "<br/>" +
+                                       "<i>IntranetPortal - PT Bintang Toedjoe</i>";
+                        //objsend.mailTo = (string)rows[i]["EMAIL"];
+                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailCC = null;
+                        objsend.mailBCC = null;
+
+                        SendMail(objsend);
+                    }
+
+
+
                 }
             }
             catch (Exception ex)
@@ -601,6 +584,8 @@ namespace Order_Makan_Online.Controllers
             string conSQL = connectionStringSettings.ConnectionString;
             SqlConnection conn = new SqlConnection(conSQL);
             List<string> ModelData = new List<string>();
+            List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
+            Dictionary<string, object> row;
             string result;
 
             try
@@ -615,10 +600,50 @@ namespace Order_Makan_Online.Controllers
                     command.Parameters.Add("@OMH_ALASAN_REJECT", System.Data.SqlDbType.NVarChar);
                     command.Parameters["@OMH_ALASAN_REJECT"].Value = model.AlasanReject;
 
+                    command.Parameters.Add("@Username", System.Data.SqlDbType.NVarChar);
+                    command.Parameters["@Username"].Value = model.Username;
+
                     result = (string)command.ExecuteScalar();
-                    conn.Close();
                     ModelData.Add(result);
                     conn.Close();
+                    SqlDataAdapter dataAdap = new SqlDataAdapter();
+                    dataAdap.SelectCommand = command;
+                    dataAdap.Fill(DT);
+
+
+                    foreach (DataRow dr in DT.Rows)
+                    {
+                        row = new Dictionary<string, object>();
+                        foreach (DataColumn col in DT.Columns)
+                        {
+                            row.Add(col.ColumnName, dr[col]);
+                        }
+
+                        rows.Add(row);
+                    }
+                    conn.Close();
+
+                    for (int i = 0; i < rows.Count; i++)
+                    {
+                        MailModel objsend = new MailModel();
+                        objsend.mailPriority = "High";
+                        objsend.isHtml = true;
+                        objsend.mailSubject = "Revisi Order Makan";
+                        objsend.mailBody =
+                                       "<label>No Order: <b> " + model.OrderNum + " </b></label>  <p style: color:black>Silahkan klik link berikut untuk melihat informasi lebih lanjut.</p>" +
+                                       "<a href='https://localhost:44312/Login/Index'>Click Here! <a>" +
+                                       "<br/>" +
+                                       "<hr />" +
+                                       " <i>Email ini tergenerate oleh system</i>" +
+                                       "<br/>" +
+                                       "<i>IntranetPortal - PT Bintang Toedjoe</i>";
+                        //objsend.mailTo =(string)rows[i]["EMAIL"]; ;
+                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailCC = null;
+                        objsend.mailBCC = null;
+
+                        SendMail(objsend);
+                    }
                 }
             }
             catch (Exception ex)
@@ -695,12 +720,9 @@ namespace Order_Makan_Online.Controllers
             var parameters = new DynamicParameters(Models.Model);
             return Json(DAL.StoredProcedure(parameters, spname), JsonRequestBehavior.AllowGet);
 
-
-
-
-
         }
-
+        
+        //Function Send Email lama, tidak dipake lagi
         public ActionResult SendEmail(EmailModel Model)
         {
             // looping untuk supervisor dan manager
@@ -790,10 +812,71 @@ namespace Order_Makan_Online.Controllers
 
             return Json(Recipient);
         }
-            
+         
+        public ActionResult InsertDTToDB(ListDetail Details, DynamicModel Models)
+        {
+            DataTable DT = new DataTable();
+            DT.Columns.Add("OrderDetail");
+            DT.Columns.Add("TanggalDetail");
+            DT.Columns.Add("HariDetail");
+            DT.Columns.Add("QuantityDetail");
+            DT.Columns.Add("ShiftDetail");
+
+            for(int i = 0; i < Details.Detail.Count; i++)
+            {
+                DataRow rowstype = DT.NewRow();
+                
+                rowstype["OrderDetail"] = Details.Detail[i].OrderDetail;
+                rowstype["TanggalDetail"] = Details.Detail[i].TanggalDetail;
+                rowstype["HariDetail"] = Details.Detail[i].HariDetail;
+                rowstype["QuantityDetail"] = Details.Detail[i].QuantityDetail;
+                rowstype["ShiftDetail"] = Details.Detail[i].ShiftDetail;
+                DT.Rows.Add(rowstype);
+
+            }
+
+            var parameters = new DynamicParameters(Models.Model);
+            parameters.Add("InsertDTToDatabase", DT.AsTableValuedParameter("InsertDTToDatabase"));
+            string Insert = DAL.StoredProcedure(parameters, "[dbo].[SP_INSERT_CREATE_ORDER_FORM]");
+
+            return Json("success");
         }
 
+        private string SendMail(MailModel value)
+        {
+            string result = "";
+            ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            ServicePointManager.ServerCertificateValidationCallback += (sender, certificate, chain, sslPolicyErrors) => true;
+            var client = new RestClient("https://portal.bintang7.com/MailSendingServices/API/GetMailData");
+            var request = new RestRequest(Method.POST);
+            request.RequestFormat = DataFormat.Json;
+            request.AddHeader("Accept", "application/json");
+            request.AddHeader("Content-Type", "application/json; charset=utf-8");
+
+            var BodyJson = new
+            {
+                mailPriority = value.mailPriority,
+                isHtml = value.isHtml,
+                mailSubject = value.mailSubject,
+                mailBody = value.mailBody,
+                mailTo = value.mailTo,
+                mailCC = value.mailCC,
+                mailBCC = value.mailBCC
+            };
+            request.AddBody(BodyJson);
+            var response = client.Post(request);
+            var content = response.Content; // Raw content as string
+
+
+            return result;
+        }
+
+
+
     }
+
+
+}
 
 
 

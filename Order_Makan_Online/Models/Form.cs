@@ -33,6 +33,26 @@ namespace Order_Makan_Online.Models
         public string NIK { get; set; }
         public string AlasanReject { get; set; }
 
+        
+    }
 
+    public class ListDetailAttribute
+    {
+        public string OrderDetail { get; set; }
+
+        public DateTime TanggalDetail { get; set; }
+        public DateTime HariDetail { get; set; }
+
+        public int QuantityDetail { get; set; }
+
+        public string ShiftDetail { get; set; }
+
+
+
+    }
+
+    public class ListDetail
+    {
+        public List<ListDetailAttribute> Detail { get; set; }
     }
 }

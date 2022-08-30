@@ -11,19 +11,15 @@
 
 
             <div id="Upper-Button">
-                @* <button type="button" class="btn btn-primary active" style="margin-right:3px" data-toggle="modal" data-target="#newHeaderModal" id="BtnNewOrder">New</button>*@
-                @*<button type="button" class="btn btn-success active" style="margin-right:3px" id="BtnSaveOrder" data-toggle="modal" data-target="#saveOrderModal">Save</button>
-                    <button type="button" class="btn btn-danger active" style="margin-right:3px" data-toggle="modal" id="BtnDeleteHeader" data-target="#DeleteOrderModal">Delete</button>*@
-
-                <button type="button" class="btn btn-success active" style="margin-right:4px;width:8vw;" id="BtnApprove" data-toggle="modal" data-target="#approveOrderModal" hidden>Approve</button>
-                <button type="button" class="btn btn-danger active" style="margin-right: 4px; width: 8vw;" data-toggle="modal" id="BtnReject" data-target="#rejectOrderModal"hidden>Reject</button>
+                <button type="button" class="btn btn-success active" style="margin-right:4px;width:8vw;" id="BtnApprove" @* data-toggle="modal" data-target="#approveOrderModal"*@ hidden>Approve</button>
+                <button type="button" class="btn btn-danger active" style="margin-right: 4px; width: 8vw;" data-toggle="modal" id="BtnReject" data-target="#rejectOrderModal" hidden>Revise</button>
             </div>
             <br />
-            
+
             <form>
                 <div class="col-md-12">
-                    <img src="~/Content/assets/images/rejected.jpeg" style="width:20%" id="rejectedPNG" hidden />
-                    <img src="~/Content/assets/images/approved.png" style="width:20%" id="approvedPNG" hidden/>
+                    <img src="~/Content/assets/images/Revisi.png" style="width:15%" id="rejectedPNG" hidden />
+                    <img src="~/Content/assets/images/approved.png" style="width:20%" id="approvedPNG" hidden />
 
                 </div>
                 <br />
@@ -32,123 +28,103 @@
 
                     <div class="row">
                         <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                            <label for="alasanreject" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Alasan Reject </label>
+                            <label for="alasanreject" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Alasan Revisi </label>
                             <input type="text" id="alasanreject" class="form-control" style="width: 100%;" readonly />
                         </div>
                     </div>
                 </div>
+                <br />
 
-            @*No Order*@
-            <div class="row" id="noorder">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="NoOrder" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">No Order </label>
-                    <input type="text" id="NoOrder" class="form-control" style="width: 100%;" readonly />
-                </div>
-            </div>
-            @*Pembuat*@
-            <div class="row" id="pembuat">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Pembuat</label>
-                    <input type="text" @* value="@Request.RequestContext.HttpContext.Session["Username"]"*@ id="UserLogin" class="form-control" style="width: 100%;" readonly />
-                </div>
-            </div>
-            @*Tanggal Pembuatan*@
-            <div class="row" id="tanggalbuat">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="InsertApplyDate" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Tanggal Pembuatan Form</label>
-                    <input type="date" id="TglBuatForm" class="form-control" style="width: 100%;" />
-                    <input type="date" id="TglUserLastUdpate" class="form-control" style="width: 100%;display:none" />
-                </div>
-            </div>
-            @*Department*@
-            <div class="row" id="dept">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Department</label>
-                    <input type="text" @*value="@Request.RequestContext.HttpContext.Session["Dept"]"*@ id="Department" class="form-control" style="width: 100%;" readonly />
-                </div>
-            </div>
-
-            @*Lokasi*@
-            <div class="row" id="location">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Lokasi</label>
-                    <input type="text" @*value="@Request.RequestContext.HttpContext.Session["Location"]"*@ id="Location" class="form-control" style="width: 100%;" readonly />
-                </div>
-            </div>
-
-            <br />
-            <HR />
-            <br />
-
-
-            @*PERIODE*@
-            <div class="row" id="divPeriod">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="from" style="display: flex; align-self: center; width: 200px;">Periode Makan</label>
-
-                    <h6 style="margin-left: 40px; margin-top: 10px;">from</h6>
-
-                    <input type="date" class="form-control" id="StartPeriod" style="width: 40%; margin-left: 10px; height: 40px;" />
-
-                    <h6 style="margin-left: 10px; margin-top: 10px; vertical-align: middle;">to</h6>
-
-                    <input type="date" id="EndPeriod" class="form-control" style="width: 40%; margin-left: 10px; height: 40px;" />
-                </div>
-            </div>
-
-            @*Quantity*@
-            <div class="row" id="divQuantity">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Quantity</label>
-                    <input type="number" id="Quantity" class="form-control" style="width: 100%;" />
-                </div>
-            </div>
-            @*Shift*@
-            <div class="row" id="divShift">
-                <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
-                    <label for="Shift" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Shift</label>
-                    <select id="Shift" name="SalesArea" class="form-control" style="width: 100%;">
-                        <option selected value=""></option>
-                        <option value="SHIFT1">SHIFT1</option>
-                        <option value="SHIFT2">SHIFT2</option>
-                        <option value="SHIFT3">SHIFT3</option>
-                    </select>
-                </div>
-
-            </div>
-
-            <div id="omhstatus">
-                <input type="text" name="omhstatus" id="statustext" class="form-control" style="width: 100%;" />
-            </div>
-
-            
-                </form>
-
-            <br />
-            @*<div id="ButtonAddDetail">
-                    <button type="button" class="btn btn-success active" id="BtnAdd" data-toggle="modal" data-target="#addOrderModal">Add Detail Order</button>
-                </div>
-            *@
-            <br />
-
-            <button type="button" class="btn btn-success active" style="margin-right:3px;width:8vw" id="BtnSaveOrder" data-toggle="modal" data-target="#saveOrderModal">Save</button>
-
-        </div>
-
-        <!-- Modal For Save data -->
-        <div class="modal fade" id="saveOrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <div class="container d-flex pl-0">
-                            <h5 class="modal-title ml-2" id="exampleModalLabel">Save Order?</h5>
-                        </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                @*No Order*@
+                <div class="row" id="noorder">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="NoOrder" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">No Order </label>
+                        <input type="text" id="NoOrder" class="form-control" style="width: 100%;" readonly />
                     </div>
-                    <div class="modal-body">
-                        <p class="text-muted">Are You Sure You Want To Insert Your Order?</p>
-                    </div>
-                    <div class="modal-footer"> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-success" id="BtnModalSaveOrder">Save</button> </div>
                 </div>
+                @*Pembuat*@
+                <div class="row" id="pembuat">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Pembuat</label>
+                        <input type="text"  id="UserLogin" class="form-control" style="width: 100%;" readonly />
+                    </div>
+                </div>
+                @*Tanggal Pembuatan*@
+                <div class="row" id="tanggalbuat">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="InsertApplyDate" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Tanggal Pembuatan Form</label>
+                        <input type="date" id="TglBuatForm" class="form-control" style="width: 100%;" />
+                        <input type="date" id="TglUserLastUdpate" class="form-control" style="width: 100%;display:none" />
+                    </div>
+                </div>
+                @*Department*@
+                <div class="row" id="dept">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Department</label>
+                        <input type="text"  id="Department" class="form-control" style="width: 100%;" readonly />
+                    </div>
+                </div>
+
+                @*Lokasi*@
+                <div class="row" id="location">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="Branch" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Lokasi</label>
+                        <input type="text"  id="Location" class="form-control" style="width: 100%;" readonly />
+                    </div>
+                </div>
+
+                <br />
+                <HR />
+                <br />
+
+
+                @*PERIODE*@
+                <div class="row" id="divPeriod">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="from" style="display: flex; align-self: center; width: 200px;">Periode Makan</label>
+
+                        <h6 style="margin-left: 40px; margin-top: 10px;">from</h6>
+
+                        <input type="date" class="form-control" id="StartPeriod" style="width: 40%; margin-left: 10px; height: 40px;" />
+
+                        <h6 style="margin-left: 10px; margin-top: 10px; vertical-align: middle;">to</h6>
+
+                        <input type="date" id="EndPeriod" class="form-control" style="width: 40%; margin-left: 10px; height: 40px;" disabled />
+                    </div>
+                </div>
+
+                @*Quantity*@
+                <div class="row" id="divQuantity">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="TxtNumber" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Quantity</label>
+                        <input type="number" id="Quantity" min="1" oninput="this.value = Math.abs(this.value)" placeholder="Input Quantity" class="form-control" style="width: 100%;" />
+                    </div>
+                </div>
+                @*Shift*@
+                <div class="row" id="divShift">
+                    <div class="row-no-gutters col-md-10" style="display: flex; align-self: center; margin-bottom: 20px;">
+                        <label for="Shift" style="display: flex; align-self: center; margin-right: 20px; width: 200px;">Shift</label>
+                        <select id="Shift" name="SalesArea" class="form-control" style="width: 100%;">
+                            <option selected value="" disabled>Select Your Shift</option>
+                            <option value="SHIFT1">SHIFT1</option>
+                            <option value="SHIFT2">SHIFT2</option>
+                            <option value="SHIFT3">SHIFT3</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div id="omhstatus">
+                    <input type="text" name="omhstatus" id="statustext" class="form-control" style="width: 100%;" />
+                </div>
+            </form>
+
+            <br />
+            <br />
+
+            <div class="row">
+                <button type="button" class="btn btn-success active" style="margin-right:3px;width:8vw" id="BtnSaveOrder" hidden>Add Detail</button>
+                <button type="button" class="btn btn-success active" style="margin-right:3px;width:8vw" id="BtnAddDetail" hidden>Add Detail</button>
             </div>
         </div>
 
@@ -170,7 +146,7 @@
         </div>
 
         <!-- Modal For Update Detail Order -->
-        <div class="modal fade" id="Modal_Row" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="Modal_Row_Update" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -183,7 +159,7 @@
                                     <div class="col-md-6">
                                         <label class="m-t-20">Quantity<span style="color: red">*</span></label>
                                         <input class="form-control" type="number" id="QuantityModal" />
-                                        <input class="form-control" type="text" id="QuantitySblm" hidden/>
+                                        <input class="form-control" type="text" id="QuantitySblm" hidden />
 
                                     </div>
                                 </div>
@@ -200,19 +176,22 @@
             </div>
         </div>
 
-        <!-- Modal Delete Detail-->
-        <div class="modal fade" id="Modal_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
+        <!-- Modal For Delete Detail Order -->
+        <div class="modal fade" id="Modal_Row_Delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <div class="container d-flex pl-0">
-                            <h5 class="modal-title ml-2" id="exampleModalLabel">Delete Detail Order ?</h5>
-                        </div> <button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+                        <h5 class="modal-title" id="exampleModalLabel">Delete Detail Order</h5>
                     </div>
                     <div class="modal-body">
-                        <p class="text-muted">Are you sure you want to Delete Detail Order?</p>
+
+                        <p class="text-muted">Are You Sure You Want To Delete Your Order?</p>
+
                     </div>
-                    <div class="modal-footer"> <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button> <button type="button" class="btn btn-success" data-dismiss="modal" id="BtnDeleteDetail">Delete</button> </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" id="CancelDelete">Cancel</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal" id="BtnDeleteDetail">Delete</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -246,7 +225,7 @@
                             <div class="card-body">
                                 <div class="row form-group-sm">
                                     <div class="col-md-10">
-                                        <label class="m-t-20">Isi Alasan Reject<span style="color: red">*</span></label>
+                                        <label class="m-t-20">Isi Alasan Revisi<span style="color: red">*</span></label>
                                         <input class="form-control" type="text" id="alasanReject" />
                                     </div>
                                 </div>
@@ -257,7 +236,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal" id="Cancel">Cancel</button>
-                        <button type="button" class="btn btn-warning" data-dismiss="modal" id="BtnModalRejectOrder">Reject</button>
+                        <button type="button" class="btn btn-warning" data-dismiss="modal" id="BtnModalRejectOrder">Revise</button>
                     </div>
                 </div>
             </div>
@@ -268,10 +247,10 @@
                 <div class="card-box shadows">
                     <div>
                         <div class="col-md-12" id="DivDetailProd">
-                            <table class="table table-striped table-bordered" id="Table_Detail_Transaction" style="width:fit-content;margin:5px">
+                            <table class="table table-striped table-bordered" id="Table_Detail_Transaction" style="width:100%;margin:5px">
                                 <thead>
                                     <tr>
-                                        <th>Action</th>
+                                        <th style="width:30%">Action</th>
                                         <th>Number</th>
                                         <th>Tanggal</th>
                                         <th>Hari</th>
@@ -289,13 +268,9 @@
         </div>
         <br />
 
-        <!--Untuk get data omh status nanti di bawah di hidden, ini agar bisa bikin kondisi ketika omh status= REJECTED-->
-       
         <div class="card-box">
-            <button type="button" class="btn btn-success active" style="margin-right: 3px; width: 8vw;" id="BtnSubmit" data-toggle="modal" data-target="#submitOrderModal">Submit</button>
+            <button type="button" class="btn btn-success active" style="margin-right: 3px; width: 8vw;" id="BtnSubmit">Submit</button>
         </div>
-
-
 
     </div>
 
@@ -313,54 +288,62 @@
     var validateform = false;
     var validateeditquantity = false;
     var validatealasanreject = false;
-    var detailshift = '';
-    var detailtanggal = '';
     var detailquantity = '';
+    var detailshift = '';
     var body;
     var subject;
     var pembuatorder;
+    var tablerow;
+    
 
     function disableHeader() {
         $('#UserLogin').prop('disabled', true);
         $('#TglBuatForm').prop('disabled', true);
         $('#Department').prop('disabled', true);
         $('#Location').prop('disabled', true);
-     @*   $('#StartPeriod').prop('disabled', true);
-        $('#EndPeriod').prop('disabled', true);
-        $('#Quantity').prop('disabled', true);
-        $('#Shift').prop('disabled', true);*@
-    }
-
-    function disableButton() {
-        $('#BtnSaveOrder').prop('disabled', true);
-        $('#BtnEdit').prop('disabled', true);
-        $('#BtnCancel').prop('disabled', true);
-        $('#BtnDeleteHeader').prop('disabled', true);@*
-        $('#BtnApprove').prop('disabled', true);*@
-        $('#BtnSubmit').prop('disabled', true);
-        $('#BtnAdd').prop('disabled', true);
     }
 
     function validateForm() {
+        $("#EndPeriod").attr("disabled", true);
         var startperiode = document.getElementById("StartPeriod").value;
         var endperiode=document.getElementById("EndPeriod").value;
         var quantity=document.getElementById("Quantity").value;
         var shift=document.getElementById("Shift").value;
-        if (startperiode == "" || endperiode == "" || quantity == "" || shift == "") {
-            swal({
-                title: "Form Must Be Filled!",
-                text: "Please Insert Your Form",
-                type: "error"
-            },
-                function () {
-                    GetDetail();
-                }
 
-            );
+        if (status == '') {
+            if (startperiode == "" || endperiode == "" || quantity == ""||quantity==0 || shift == "") {
+                swal({
+                    title: "Form Must Be Filled Correctly!",
+                    text: "Please Insert Your Form Correctly",
+                    type: "error"
+                });
 
-            validateform = false;
-        } else {
-            validateform = true;
+                validateform = false;
+            }
+            else {
+                validateform = true;
+            }
+        }
+        else if (status == 'REVISE') {
+            if (startperiode == "" || endperiode == "" || quantity == "" || quantity == 0 || shift == "") {
+                swal({
+                    title: "Form Must Be Filled!",
+                    text: "Please Insert Your Form",
+                    type: "error"
+                },
+                    function () {
+                        GetDetail();
+                    }
+
+                );
+
+                validateform = false;
+
+            }
+            else {
+                validateform = true;
+            }
+
         }
 
     }
@@ -396,25 +379,12 @@
 
     function newOrder() {
         $('#StartPeriod').removeAttr('disabled');
-        $('#EndPeriod').removeAttr('disabled');
         $('#Quantity').removeAttr('disabled');
         $('#Shift').removeAttr('disabled');
 
     }
 
     function clearData() {
-        document.getElementById("StartPeriod").value = '';
-        document.getElementById("EndPeriod").value = '';
-        document.getElementById("Quantity").value = '';
-        document.getElementById("Shift").value = '';
-    }
-
-    function deleteclearData() {
-        document.getElementById("NoOrder").value = '';
-        document.getElementById("UserLogin").value = '';
-        document.getElementById("TglBuatForm").value = '';
-        document.getElementById("Department").value = '';
-        document.getElementById("Location").value = '';
         document.getElementById("StartPeriod").value = '';
         document.getElementById("EndPeriod").value = '';
         document.getElementById("Quantity").value = '';
@@ -441,87 +411,68 @@
         if (day < 10) day = "0" + day;
 
         var today = year + "-" + month + "-" + day;
-        console.log(today);
+        //console.log(today);
         document.getElementById('TglBuatForm').value = today;
 
+
     }
 
-    function InsertHeaderOrder() {
-        var ordernum = $('#NoOrder').val();
-        var pembuat = $('#UserLogin').val();
-        var tanggalbuat = $('#TglBuatForm').val();
-        var department = $('#Department').val();
-        var lokasi = $('#Location').val();
-        var userlastupdate = $('#TglBuatForm').val();
+    //Get tanggal detail table untuk add detail pada create order
+    function GetTanggal(startdate,i) {
+       
+        //today.toLocaleString('default', { month: 'long' });
+        
+        var day = startdate.getDate() + i;
+        var month = startdate.getMonth()+1;
+        var year = startdate.getFullYear();
 
-        var object = {
-            OrderNum: ordernum,
-            Username: pembuat,
-            TanggalBuat: tanggalbuat,
-            Department: department,
-            Lokasi: lokasi,
-            UserLastUpdate:userlastupdate
+       @* alert(year)*@
+      
+        var d = new Date(year, month, 0);
+        var dDate = d.getDate();
+      @*  alert(dDate)
+        alert(day)*@
+        if (day > dDate) {
+            day = day - dDate;
+            month =month+1;
+            year = year;
         }
 
-        $.ajax({
-            url: 'InsertHeaderOrder',
-            type: 'post',
-            data: JSON.stringify(object),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (json) {
+        if (month > 12) {
+            month = month - 12;
+            year = year + 1;
+        }
 
-                alert("Insert Header Berhasil!")
-               @* GetDetail();
-               *@
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
+        if (month < 10) month = "0" + month;
+        if (day < 10) day = "0" + day;
+            var date = year + "-" + month + "-" + day;
+
+        return date;
+
+    }
+
+    //Get hari detail table untuk add detail pada create order
+    function GetDay(startdate, i) {
+        var weekday = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        var day = startdate.getDay() + i;
+
+        var date;
+        var length = day / 7;
+
+        for (var i = 0; i < length; i++) {
+
+            if (day >= 7) {
+                day -= 7
             }
-
-        });
-
-    }
-
-    function InsertDetailOrder() {
-        var ordernum = $('#NoOrder').val();
-        var userID = $('#UserLogin').val();
-        var userlastupdate = $('#TglBuatForm').val();
-        var periodeawal = $('#StartPeriod').val();
-        var periodeakhir = $('#EndPeriod').val();
-        var qty = $('#Quantity').val();
-        var shift = $('#Shift option:selected').val();
-
-        var object = {
-            OrderNum: ordernum,
-            Username: userID,
-            UserLastUpdate:userlastupdate,
-            StartPeriod: periodeawal,
-            EndPeriod: periodeakhir,
-            Quantity: qty,
-            Shift: shift
         }
 
-    $.ajax({
-        url: 'InsertDetailOrder',
-        type: 'post',
-        data: JSON.stringify(object),
-        dataType: 'json',
-        contentType: 'application/json; charset=utf-8',
-        success: function (json) {
+        date = weekday[day];
+     
 
-            @*alert("Insert Detail Berhasil!")*@
-            GetDetail();
-
-            },
-        error: function (ex) {
-            alert(JSON.stringify(ex));
-        }
-
-    });
-
+        return date;
     }
 
+    //Insert order
     function InsertCreateOrder() {
         var omd_no = $('#NoOrder').val();
         var pembuat = $('#UserLogin').val();
@@ -538,21 +489,21 @@
         var qty = $('#Quantity').val();
         var shift = $('#Shift option:selected').val();
 
-            var object = {
-                OMH_NO: omh_no,
-                Username: pembuat,
-                TanggalBuat: tanggalbuat,
-                Department: department,
-                Lokasi: lokasi,
-                UserLastUpdateHeader: userlastupdateheader,
-                OMD_NO: omd_no,
-                UserIDDetail: userID,
-                UserLastUpdateDetail: userlastupdatedetail,
-                StartPeriod: periodeawal,
-                EndPeriod: periodeakhir,
-                Quantity: qty,
-                Shift: shift
-            }
+        var object = {
+            OMH_NO: omh_no,
+            Username: pembuat,
+            TanggalBuat: tanggalbuat,
+            Department: department,
+            Lokasi: lokasi,
+            UserLastUpdateHeader: userlastupdateheader,
+            OMD_NO: omd_no,
+            UserIDDetail: userID,
+            UserLastUpdateDetail: userlastupdatedetail,
+            StartPeriod: periodeawal,
+            EndPeriod: periodeakhir,
+            Quantity: qty,
+            Shift: shift
+        }
 
             $.ajax({
                 url: 'InsertCreateOrderForm',
@@ -563,10 +514,11 @@
                 success: function (json) {
 
                     var statusDetail = json;
+                   //alert(statusDetail);
                     if (statusDetail == 'VALID') {
                         swal({
-                            title: "Inserted!",
-                            text: "Success to insert data!",
+                            title: "Add Detail Success",
+                            text: "Anda berhasil menambahkan detail",
                             type: "success"
                         },
                             function () {
@@ -578,8 +530,8 @@
 
                     if (statusDetail == 'INVALID') {
                         swal({
-                            title: "Cannot Insert Order On Same Date And Same Shift!",
-                            text: "Please Reinsert Your Order Again!",
+                            title: "Detail Tanggal dan Detail Shift Sudah Ada!",
+                            text: "Silahkan input dengan detail tanggal dan detail shift yang belum pernah diinput",
                             type: "error"
                         });
                     }
@@ -592,7 +544,6 @@
             });
 
         }
-
 
     //Function Table Detail Order
     function GetDetail() {
@@ -624,14 +575,14 @@
                         {
                             "data": null,
                            @* "defaultContent": "<button class='btn btn-primary edit' type='button' id='EditDetail' >Edit</button>"*@
-                            "defaultContent": '<input type="button" class="btn btn-primary" style="background-color:orange;margin-right:5px;width:3vw" id="EditDetail" data-toggle="modal" data-target="#Modal_Row" data-backdrop="static"  value="Edit" />' +
-                                '<input type="button" class="btn btn-danger"style="width:3vw" id="DeleteDetail" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
+                            "defaultContent": '<input type="button" class="btn btn-primary" style="background-color:orange;margin-right:5px;width:3vw" id="EditDetail" data-toggle="modal" data-target="#Modal_Row_Update" data-backdrop="static"  value="Edit" />' +
+                                '<input type="button" class="btn btn-danger" width:3vw" id="DeleteDetail" data-toggle="modal" data-target="#Modal_Row_Delete" data-backdrop="static"  value="Delete" />'
 
                         },
                         { "data": "OMD_NO" },
                         { "data": "TANGGAL" },
                         { "data": "HARI" },
-                        { "data": "OMD_QUANTITY" },
+                        { "data": "OMD_QUANTITY" }, 
                         { "data": "OMD_SHIFT" },
 
                     ],
@@ -683,8 +634,9 @@
                             {
                                 "data": null,
                            @* "defaultContent": "<button class='btn btn-primary edit' type='button' id='EditDetail' >Edit</button>" *@
-                    "defaultContent": '<input type="button" class="btn btn-primary" style="background-color:orange;margin-right:5px" id="EditDetail" data-toggle="modal" data-target="#Modal_Row" data-backdrop="static"  value="Edit" />' +
-                        '<input type="button" class="btn btn-danger"@* style=";margin-right:5px"*@ id="DeleteDetail" data-toggle="modal" data-target="#Modal_Delete" data-backdrop="static"  value="Delete" />'
+                                "defaultContent": '<input type="button" class="btn btn-primary" style="background-color:orange;margin-right:5px;width:3vw" id="EditDetail" data-toggle="modal" data-target="#Modal_Row_Update" data-backdrop="static"  value="Edit" />' +
+                                    '<input type="button" class="btn btn-danger" width:3vw" id="DeleteDetail" data-toggle="modal" data-target="#Modal_Row_Delete" data-backdrop="static"  value="Delete" />'
+
 
                 },
                 { "data": "OMD_NO" },
@@ -754,41 +706,18 @@
             contentType: "application/json;charset=utf-8",
             success: function (data) {
                 $('#NoOrder').val(data[0]);
-                console.log(data);
+               // console.log(data);
+                omh_no = $('#NoOrder').val();
+                
             },
             error: function (ex) {
                 //GetErrorInput("GenerateNoReqIDInput", JSON.stringify(ex));
                 alert(JSON.stringify(ex));
+
                 //GetErrorInput("GenerateNoReqIDInput", JSON.stringify(ex));
             }
         });
     }
-
-    //Delete order baik header maupun detail
-    function DeleteOrder() {
-        var number = $('#NoOrder').val();
-        var numberdetail = $('#NoOrder').val();
-        var object = {
-            OrderNum: number,
-            OrderNumDetail: numberdetail
-        }
-
-        $.ajax({
-            url: 'DeleteOrderHeader',
-            type: 'post',
-            data: JSON.stringify(object),
-            dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
-            success: function (json) {
-                @*GetDetail();*@
-                alert('Delete Success.');
-            },
-            error: function (ex) {
-                alert(JSON.stringify(ex));
-            }
-
-        });
-        }
 
     function DeleteDetailOrder(detailtanggal, detailshift) {
             var ordernum = $('#NoOrder').val();
@@ -806,9 +735,16 @@
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 success: function (json) {
-                    alert('Delete Success.');
-                    GetDetail();
+                    swal({
+                        title: "Delete Success!",
+                        text: "Success to Delete Detail!",
+                        type: "success"
+                    },
+                        function () {
+                            GetDetail();
+                        }
 
+                    );
                 },
                 error: function (ex) {
                     alert(JSON.stringify(ex));
@@ -819,8 +755,10 @@
 
     function SubmitOrder() {
         var number = $('#NoOrder').val();
+        var department = $('#Department').val();
         var object = {
-            OrderNum: number
+            OrderNum: number,
+            Department:department
         }
 
         $.ajax({
@@ -828,12 +766,12 @@
             type: 'post',
             data: JSON.stringify(object),
             dataType: 'json',
-            contentType: 'application/json; charset=utf-8',
+            contentType: 'application/json;charset=utf-8',
             success: function (json) {
                 var url = "../Home/Index";
                 swal({
-                    title: "Submit Order!",
-                    text: "Success to submit order!",
+                    title: "Submit Order and Send Email!",
+                    text: "Success To Submit Order and Send Email!",
                     type: "success"
                 }, function () {
                     $(location).attr('href', url);
@@ -849,11 +787,17 @@
     }
 
     function ApproveOrder() {
-            var number = $('#NoOrder').val();
-            var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+        var number = $('#NoOrder').val();
+        var nik = '@Request.RequestContext.HttpContext.Session["NIK"]';
+        var pembuat = $('#UserLogin').val();
+        var department = $('#Department').val();
+
+
             var object = {
                 OrderNum: number,
-                NIK:nik
+                NIK: nik,
+                Username: pembuat,
+                Department:department
             }
 
             $.ajax({
@@ -866,8 +810,8 @@
 
                     var url = "../Home/Index";
                     swal({
-                        title: "Approve Order!",
-                        text: "Success To Approve Order!",
+                        title: "Approve Order and Send Email!",
+                        text: "Success To Approve Order and Send Email!",
                         type: "success"
                     },
                         function () {
@@ -886,10 +830,12 @@
     function RejectOrder() {
         var number = $('#NoOrder').val();
         var alasanreject = $('#alasanReject').val();
+        var pembuat = $('#UserLogin').val();
 
             var object = {
                 OrderNum: number,
-                AlasanReject:alasanreject
+                AlasanReject: alasanreject,
+                Username:pembuat
             }
 
             $.ajax({
@@ -901,8 +847,8 @@
                 success: function (json) {
                     var url = "../Home/Index";
                     swal({
-                        title: "Reject Order!",
-                        text: "Success To Reject Order!",
+                        title: "Revise Order and Send Email!",
+                        text: "Success To Reject Order and Send Email!",
                         type: "success"
                     },
                         function () {
@@ -969,7 +915,7 @@
         var noorderlist = querystringlist.substring(0, 21);
         var status = querystringlist.substring(22);
     }
-
+   
     var querystringApv = getQueryStrings()["OutstandingApvid"];
 
     function getQueryStrings() {
@@ -1066,6 +1012,7 @@
         });
     }
 
+    //Function sendemail,sendemailrevisi,sendemailapprove,getemailbody,getemailbodyrevisi dan getemailbodyapprove tidak dipake lagi
     function sendEmail() {
 
         var dept=getDepartment;
@@ -1097,15 +1044,48 @@
         });
     }
 
-    function sendEmailApprove_Reject() {
+    function sendEmailRevise() {
 
         var dept = getDepartment;
         var username = $('#UserLogin').val();
 
         var dictlist = {
-            Option: 'Approve_Reject',
+            Option: 'Revise',
             DEPT: dept,
             Username:username,
+            Body: body,
+            Subject: subject
+        }
+        //var dto = {
+        //    Model: dictlist
+        //}
+
+        $.ajax({
+            url: '../Form/SendEmail?spname=SP_EMAIL',
+            type: 'post',
+            data: JSON.stringify(dictlist),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (json) {
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    function sendEmailApprove() {
+
+        var dept = getDepartment;
+        var username = $('#UserLogin').val();
+
+        var dictlist = {
+            Option: 'Approve',
+            DEPT: dept,
+            Username: username,
             Body: body,
             Subject: subject
         }
@@ -1167,7 +1147,7 @@
         });
     }
 
-    function getEmailBodyApprove_Reject() {
+    function getEmailBodyRevise() {
 
         var kategori = $('#statustext').val();
         var number = $('#NoOrder').val();
@@ -1194,7 +1174,7 @@
                 body = result[0].Body;
                 subject = result[0].Email_Subject;
 
-                sendEmailApprove_Reject();
+                sendEmailRevise();
 
             },
             error: function (ex) {
@@ -1204,10 +1184,46 @@
         });
     }
 
+    function getEmailBodyApprove() {
+
+        var kategori = $('#statustext').val();
+        var number = $('#NoOrder').val();
+        var dictlist = {
+            Kategori: kategori,
+            NoOrder: number
+
+        }
+        var dto = {
+            Model: dictlist
+        }
+
+        $.ajax({
+            url: '../Form/DynamicController?spname=SP_GET_EMAIL_BODY',
+            type: 'post',
+            data: JSON.stringify(dto),
+            dataType: 'json',
+            async: false,
+            contentType: 'application/json; charset=utf-8',
+            success: function (json) {
+
+                //variable global untuk emailbody,dan email subject
+                var result = JSON.parse(json);
+                body = result[0].Body;
+                subject = result[0].Email_Subject;
+
+                sendEmailApprove();
+
+            },
+            error: function (ex) {
+                alert(JSON.stringify(ex));
+            }
+
+        });
+    }
+
+    
 
     $(document).ready(function () {
-        
-
         $('#BtnSaveOrder').removeAttr('disabled');
         disableHeader();
 
@@ -1215,48 +1231,46 @@
         $('#DivDetailProd').hide(); //hide table detail
         $('#BtnSubmit').hide();
         $('#AlasanReject').hide();
-        $('#omhstatus').hide(); //hide inputan status karena itu tidak berguna di formnya
+        $('#omhstatus').hide(); 
+        $('#BtnAddDetail').prop('hidden', false);
 
         //Get username,department,and location from session
         document.getElementById("UserLogin").value = '@Request.RequestContext.HttpContext.Session["Username"]';
         document.getElementById("Department").value = '@Request.RequestContext.HttpContext.Session["Dept"]';
         document.getElementById("Location").value = '@Request.RequestContext.HttpContext.Session["Location"]';
 
+        
        
         //Untuk membuat order baru, kondisinya ketika listmakanan no ordernya null dan outstanding approval no ordernya null
         if (noorderlist == null || noorderlist == '' ) {
             GetDate();
-           // GenerateOrderNumber();
+
             if (querystringApv == null) {
                 GenerateOrderNumber();
             }
             newOrder();
-        }
-
-   
-
-        //Kondisi ketika memilih listmakanan saat statusnya pending
-        else if (noorderlist != null && status == 'PENDING' ) {
-            populateHeaderListMakanan();
-         
-                $('#BtnDeleteHeader').removeAttr('disabled');
-                $('#BtnSubmit').removeAttr('disabled');
-
-                //show button submit and delete header,show table detail
-                $('#BtnSubmit').show();
-                $('#DivDetailProd').show();
-
-                GetDetail();
-                newOrder();
             
-
-         
-
         }
 
+        else if (noorderlist != null && status == 'SUBMITTED') {
+            populateHeaderListMakanan();
+
+            //hide
+            $('#divPeriod').hide();
+            $('#divQuantity').hide();
+            $('#divShift').hide();
+            $('#BtnSaveOrder').hide();
+            $('#BtnSubmit').hide();
+            $('#BtnAddDetail').prop('hidden', true);
+
+            //show table detail produk, button approve and reject
+            $('#DivDetailProd').show();
+
+            GetDetailOutstanding();
+        }
 
         //Kondisi ketika memilih listmakanan saat statusnya rejected
-        else if (noorderlist != null && status == 'REJECTED') {
+        else if (noorderlist != null && status == 'REVISE') {
             populateHeaderListMakanan();
             $('#rejectedPNG').show();
             $('#rejectedPNG').prop('hidden', false);
@@ -1274,12 +1288,9 @@
                 $('#AlasanReject').show();
 
                 $('#BtnApprove').hide();
-                $('#BtnReject').hide();
-                $('#noorder').hide();
-                $('#pembuat').hide();
-                $('#tanggalbuat').hide();
-                $('#dept').hide();
-                $('#location').hide();
+            $('#BtnReject').hide();
+            $('#BtnAddDetail').prop('hidden', true);
+            $('#BtnSaveOrder').prop('hidden', false);
 
                 newOrder();
                 GetDetail();
@@ -1298,6 +1309,7 @@
             $('#divShift').hide();
             $('#BtnSaveOrder').hide();
             $('#BtnSubmit').hide();
+            $('#BtnAddDetail').prop('hidden', true);
 
             //show table detail produk, button approve and reject
             $('#DivDetailProd').show();
@@ -1318,6 +1330,7 @@
             $('#BtnDeleteHeader').hide();
             $('#BtnNewOrder').hide();
             $('#BtnAdd').hide();
+            $('#BtnAddDetail').prop('hidden', true);
 
             //show
             $('#DivDetailProd').show();
@@ -1326,28 +1339,6 @@
 
             GetDetailOutstanding();
         }
-
-       //Bikin validasi kalo hari sabtu dan minggu tidak boleh di pick untuk startperiod
-        const picker = document.getElementById('StartPeriod');
-        picker.addEventListener('input', function (e) {
-            var day = new Date(this.value).getUTCDay();
-            if ([6, 0].includes(day)) {
-                e.preventDefault();
-                this.value = '';
-                alert('Weekends not allowed');
-            }
-        });
-
-       //Bikin validasi kalo hari sabtu dan minggu tidak boleh di pick untuk endperiod
-        const picker2 = document.getElementById('EndPeriod');
-        picker2.addEventListener('input', function (e) {
-            var day = new Date(this.value).getUTCDay();
-            if ([6, 0].includes(day)) {
-                e.preventDefault();
-                this.value = '';
-                alert('Weekends not allowed');
-            }
-        });
 
         //Bikin validasi kalo End Period harus lebih besar daripada start period
         $("#EndPeriod").on('change', function () {
@@ -1359,37 +1350,38 @@
             }
         });
 
-        //Bikin validasi kalo Start Period harus lebih besar daripada waktu hari ini
-        $("#StartPeriod").on('change', function () {
-            var startDate = $(this).val();
+        //Bikin validasi kalo End Period harus lebih besar daripada waktu hari ini
+        $("#EndPeriod").on('change', function () {
+            var endDate = $(this).val();
             var currentDate = $('#TglBuatForm').val();
-            if (startDate < currentDate) {
-                alert('Selected date must be greater than today');
+            if (endDate < currentDate) {
+               alert('Selected date must be greater than today');
                 $(this).val('');
             }
         });
 
-        //Klik button delete di modal delete
-        $('#BtnModalDeleteOrder').click(function () {
-            DeleteOrder();
+        //Bikin validasi kalo Start Period harus lebih besar daripada waktu hari ini
+        $("#StartPeriod").on('change', function () {
+            var startDate = $(this).val();
+            var currentDate = $('#TglBuatForm').val();
+        
+            if (startDate < currentDate) {
+                alert('Selected date must be greater than today');
+                $(this).val('');
+                $("#EndPeriod").val('');
 
-            $('#DeleteOrderModal').modal('hide');
-            $(".modal-backdrop").remove();
-            disableHeader();
-            deleteclearData();
+                $("#EndPeriod").attr("disabled",true);
+            } else {
+                $("#EndPeriod").val('');
+                $("#EndPeriod").attr("disabled", false);
+            }
 
-            $('#BtnDeleteHeader').prop('disabled', true);
-            $('#BtnEdit').prop('disabled', true);
-            $('#BtnNewOrder').removeAttr('disabled');
-
-            var url = "../Home/Index";
-            $(location).attr('href', url);
-
+          
         });
 
           //Klik button save di modal save
-        $('#BtnModalSaveOrder').click(function () {
-           // InsertCreateOrder();
+        $('#BtnSaveOrder').click(function () {
+
             validateForm();
             if (validateform==true) {
                 InsertCreateOrder();
@@ -1398,89 +1390,330 @@
                 $('#BtnSubmit').show();
                 GetDetail();
             }
-         @*   InsertCreateOrder();
-            clearData();*@
-
-            $('#saveOrderModal').modal('hide');
-            $(".modal-backdrop").remove();
-           @* $('#DivDetailProd').show();
-            $('#BtnSubmit').show();
-            GetDetail();*@
-
+      
 
         });
-
+      
         //Klik button Update di modal Edit
         $('#BtnUpdateDetail').click(function () {
             validateEditQuantity();
-            if (validateeditquantity == true) {
+            if (validateeditquantity == true && status == 'REVISE') {
                 UpdateDetailOrder(detailtanggal, detailshift);
                 InsertRevisi();
             }
 
+           else if (validateeditquantity == true &&status=='') {
+                
+                var table = $('#Table_Detail_Transaction').DataTable();
+        
+                var tblrow = table.row(tablerow).data();
+                detailshift = tblrow["OMD_SHIFT"];
+                detailtanggal = tblrow["TANGGAL"];
+
+                detailquantity = tblrow["OMD_QUANTITY"];
+
+                //Ketika membuat order baru
+                if (status == '') {
+                    var edit = table.cell(tablerow, 4).data();
+                    edit = $('#QuantityModal').val();
+                    table.cell(tablerow, 4).data(edit);
+                    swal({
+                        title: "Update Detail Quantity Success",
+                        text: "Anda berhasil mengupdate quantity detail",
+                        type: "success"
+                    });
+                }
+                //Ketika merivisi order
+                else if (status == 'REVISE') {
+                     UpdateDetailOrder(detailtanggal, detailshift);
+                }
+               
+
+               
+            }
+          
+
         });
 
-        //Klik button Delete di modal Delete Detail
+        //Klik button delete di modal delete
         $('#BtnDeleteDetail').click(function () {
-            DeleteDetailOrder(detailtanggal,detailshift);
+
+            var table = $('#Table_Detail_Transaction').DataTable();
+            var tblrow = table.row(tablerow).data();
+
+                detailshift = tblrow["OMD_SHIFT"];
+                detailtanggal = tblrow["TANGGAL"];
+
+                //Ketika membuat order baru
+            if (status == '') {
+               
+                table.row(tablerow).remove().draw();
+                    swal({
+                        title: "Delete Success!",
+                        text: "Success to Delete Detail!",
+                        type: "success"
+                    });
+                }
+                //Ketika merivisi order
+                else if (status == 'REVISE') {
+                    DeleteDetailOrder(detailtanggal, detailshift);
+                }
+
+
+
+            
+
+
         });
 
-        //Klik button submit,di modal submit
-        $('#BtnModalSubmitOrder').click(function () {
-            getEmailBody();
-            SubmitOrder();
-           @* var url = "../Home/Index";
-            $(location).attr('href', url);*@
+        //Klik button submit
+        $('#BtnSubmit').click(function () {
+            $('#statustext').val('SUBMITTED');
+            $("#BtnSubmit").prop('disabled', true);
+            var omh_no = $('#NoOrder').val();
+            var periodeawal = $('#StartPeriod').val();
+            var periodeakhir = $('#EndPeriod').val();
+            var qty = $('#Quantity').val();
+            var shift = $('#Shift option:selected').val();
+            var omd_no = $('#NoOrder').val();
+            var pembuat = $('#UserLogin').val();
+            var tanggalbuat = $('#TglBuatForm').val();
+            var department = $('#Department').val();
+            var lokasi = $('#Location').val();
+            var userlastupdateheader = $('#TglBuatForm').val();
+            var userID = $('#UserLogin').val();
+            var userlastupdatedetail = $('#TglBuatForm').val();
+            var kategori = $('#statustext').val();
+
+            var table = $('#Table_Detail_Transaction').DataTable();
+            var tablelength = table.rows().count();
+            var flag = true;
+           
+            var dictlist = {
+                Option: "Insert Detail From Datatable",
+                OMH_NO: omh_no,
+                Username: pembuat,
+                TanggalBuat: tanggalbuat,
+                Department: department,
+                Lokasi: lokasi,
+                UserLastUpdateHeader: userlastupdateheader,
+                OMD_NO: omd_no,
+                UserIDDetail: userID,
+                UserLastUpdateDetail: userlastupdatedetail,
+                OMD_Tanggal: periodeawal,
+                TanggalClosing: periodeakhir,
+                Quantity: qty,
+                Shift: shift,
+                Status:kategori
+
+                
+            }
+
+            //Kondisi pada saat membuat order baru
+            if (status == '') {
+               
+                var json = [];
+
+                for (var i = 0; i < tablelength; i++) {
+                    var object = {};
+
+                    var tblrow = table.row(i).data();
+                    object['OrderDetail'] = tblrow[1];
+                    object['TanggalDetail'] = tblrow[2];
+                    object['HariDetail'] = tblrow[3];
+                    object['QuantityDetail'] = tblrow[4];
+                    object['ShiftDetail'] = tblrow[5];
+
+                    json.push(object);
+                }
+
+                var dto = {
+                    Detail: json,
+                    Model: dictlist
+                }
+
+                $.ajax({
+                    url: '../Form/InsertDTToDB',
+                    type: 'post',
+                    data: JSON.stringify(dto),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (json) {
+                      
+                        SubmitOrder();
+                        
+                      
+                    },
+                    error: function (ex) {
+                        alert(JSON.stringify(ex));
+                    }
+
+                });
+
+            }
+            //Kondisi ketika revisi order
+            else if(status=='REVISE'){
+               //Function get Email Body yang dlu (tidak dipake lagi)
+               // getEmailBody();
+                SubmitOrder();
+            }
+           
+         
 
         });
 
         //Klik button approve,di modal approve
-        $('#BtnModalApproveOrder').click(function () {
+        $('#BtnApprove').click(function () {
             $('#statustext').val('APPROVED');
-            getEmailBodyApprove_Reject();
+            $("#BtnApprove").prop('disabled', true);
+            $("#BtnReject").prop('disabled', true);
+            //Function get Email Body Approve yang dlu (tidak dipake lagi)
+            // getEmailBodyApprove();
             ApproveOrder();
         });
 
         //Klik button reject, di modal reject
         $('#BtnModalRejectOrder').click(function () {
             validateAlasanReject();
+            $("#BtnApprove").prop('disabled', true);
+            $("#BtnReject").prop('disabled', true);
             if (validatealasanreject == true) {
-                $('#statustext').val('REJECTED');
-                getEmailBodyApprove_Reject();
+                $('#statustext').val('REVISE');
+                //Function get Email Body Revise yang dlu (tidak dipake lagi)
+                //getEmailBodyRevise();
                 RejectOrder();
             }
+        });
+      
+        //Klik Button Add Detail untuk add detail ke view
+        $('#BtnAddDetail').on('click', function () {
+            validateForm();
+           
+            if (validateform == true) {
+            $('#DivDetailProd').show();
+            $('#BtnSubmit').show();
+
+            var number = $('#NoOrder').val();
+            var periodeawal = $('#StartPeriod').val();
+            var periodeakhir = $('#EndPeriod').val();
+            var qty = $('#Quantity').val();
+            var shift = $('#Shift option:selected').val();
+
+            var table = $('#Table_Detail_Transaction').DataTable();
+
+            var startdate = new Date(periodeawal);
+            var enddate = new Date(periodeakhir);
+
+            var length;
+
+            var enddateyear = parseInt(enddate.getFullYear());
+            var startdateyear = parseInt(startdate.getFullYear());
+
+            var d = new Date(enddateyear, enddate.getMonth() + 1, 0);
+            var dDate = d.getDate();
+
+            if (enddate.getMonth() > startdate.getMonth()) {
+                length = dDate + enddate.getDate() + 1 - startdate.getDate();
+            } else {
+                length = enddate.getDate() - startdate.getDate();
+            }
+
+            if (enddateyear > startdateyear) {
+                length = 31 + enddate.getDate() - startdate.getDate();
+            }
+
+            //alert(length)
+
+
+            var tablelength = table.rows().count();
+          
+
+            var flag=true;
+
+            for (var i = 0; i < tablelength; i++) {
+                var tblrow = table.row(i).data();
+                detailshift = tblrow[5];
+                detailtanggal = tblrow[2];
+
+
+                if (detailtanggal == periodeawal && detailshift == shift) {
+                    flag = false;
+                } else if (detailtanggal == periodeakhir && detailshift == shift) {
+                    flag = false;
+                }
+             
+            }
+
+           
+
+                if (flag == true) {
+                    for (var i = 0; i <= length; i++) {
+                    @* var day = startdate.getDate() + i;
+                    alert(day) *@
+
+                        GetTanggal(startdate, i);
+
+                        table.row.add(['<input type="button" class="btn btn-primary" style="background-color:orange;margin-right:5px;width:3vw" id="EditDetail" data-toggle="modal" data-target="#Modal_Row_Update" data-backdrop="static"  value="Edit" />' +
+                            '<input type="button" class="btn btn-danger" width:3vw" id="DeleteDetail" data-toggle="modal" data-target="#Modal_Row_Delete" data-backdrop="static"  value="Delete" />'
+                            , number, GetTanggal(startdate, i), GetDay(startdate, i), qty, shift]).draw(false);
+
+                  @*  order: [[4, 'asc']],*@
+                        clearData();
+
+                    }
+                    swal({
+                        title: "Add Detail Success",
+                        text: "Anda berhasil menambahkan detail",
+                        type: "success"
+                    });
+                }
+                else {
+                    swal({
+                        title: "Detail Tanggal dan Detail Shift Sudah Ada",
+                        text: "Silahkan input dengan detail tanggal dan detail shift yang belum pernah diinput",
+                        type: "warning"
+                    });
+
+                }
+
+
+            }
+
+
         });
 
         //Klik button Edit di table detail
         $('#Table_Detail_Transaction tbody').on('click', 'input[id="EditDetail"]', function () {
             var rows = $(this).closest("TR");
+            tablerow = rows;
             var table = $('#Table_Detail_Transaction').DataTable();
-            //revodr = $("TD", rows).eq(1).html();
-            //detailquantity = $("TD", rows).eq(4).html();
-
+            
             var tblrow = table.row(rows).data();
             detailshift = tblrow["OMD_SHIFT"];
             detailtanggal = tblrow["TANGGAL"];
 
             detailquantity = tblrow["OMD_QUANTITY"];
 
-
-            $('#QuantityModal').val(detailquantity);
-            $('#QuantitySblm').val(detailquantity);
-
+            if (status == 'REVISE') {
+                 $('#QuantityModal').val(detailquantity);
+                 $('#QuantitySblm').val(detailquantity);
+            }
+            
+        
+          
         })
 
         //Klik button Delete di table detail
-        $('#Table_Detail_Transaction tbody').on('click', 'input[id="DeleteDetail"]', function () {
-            var row = $(this).closest("TR");
+        $('#Table_Detail_Transaction').on('click', 'input[id="DeleteDetail"]', function () {
+            var rows= $(this).closest("TR");
+            tablerow = rows;
             var table = $('#Table_Detail_Transaction').DataTable();
-            var tblrow = table.row(row).data();
-
+            var tblrow = table.row(rows).data();
             //Initialize value detail shift dan detail tanggal untuk dimasukan ke function
             detailshift = tblrow["OMD_SHIFT"];
             detailtanggal = tblrow["TANGGAL"];
         })
-
+        
 
     });
 
