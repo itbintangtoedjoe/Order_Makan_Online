@@ -16,7 +16,7 @@
 
                 <div style="margin-top:2px;">
                     <div class="col-md-12">
-                        <table class="table table-striped table-bordered" id="Table_Pending_Task" style="width:fit-content;margin:auto">
+                        <table class="table table-striped table-bordered nowrap" id="Table_Pending_Task" style="width:fit-content;margin:auto">
                             <thead>
                                 <tr>
                                     <th>Number</th>
@@ -98,6 +98,11 @@
                             "targets": '_all',
                             "className": 'dt-center',
                             "width": "10%"
+                        },
+
+                        {
+                            "targets": [7],
+                            "orderable":false
                         },
                         { 'visible': false, 'targets': [4,5,6] }
                     ]

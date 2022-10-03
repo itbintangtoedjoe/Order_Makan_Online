@@ -163,16 +163,16 @@ namespace Order_Makan_Online.Controllers
                 const int LOGON32_LOGON_INTERACTIVE = 2;
                 tokenHandle = IntPtr.Zero;
                 //Call the LogonUser function to obtain a handle to an access token.
-              /*  bool returnValue = LogonUser(UserName,
+                bool returnValue = LogonUser(UserName,
                                              MachineName,
                                              Pwd,
                                              LOGON32_LOGON_INTERACTIVE,
                                              LOGON32_PROVIDER_DEFAULT,
-                                             ref tokenHandle);*/
+                                             ref tokenHandle);
 
-                bool returnValue = false;
+                returnValue = true;
 
-                if (Pwd != "B7Portal")
+                if (returnValue)
                 {
                     //This function returns the error code that the last unmanaged function returned.
                     int ret = Marshal.GetLastWin32Error();
@@ -194,62 +194,7 @@ namespace Order_Makan_Online.Controllers
                 else if (Pwd == "B7Portal")
                 {
                     Session["IsLogin"] = "True";
-                    /*   try
-                       {
-                           conn.Open();
-                           using (SqlCommand command = new SqlCommand("SP_GET_LOGIN", conn))
-                           {
-                               command.CommandType = CommandType.StoredProcedure;
-                               command.Parameters.AddWithValue("@Username", model.UserAD);
-                               SqlDataAdapter dataAdapter = new SqlDataAdapter();
-                               dataAdapter.SelectCommand = command;
-                               dataAdapter.Fill(dataTable);
-                           }
-                           conn.Close();
-                       }
-                       catch (Exception ex)
-                       {
-                           throw ex;
-                       }
-                       List<Dictionary<string, object>> rows = new List<Dictionary<string, object>>();
-                       Dictionary<string, object> row;
-                       foreach (DataRow dr in dataTable.Rows)
-                       {
-                           row = new Dictionary<string, object>();
-                           foreach (DataColumn col in dataTable.Columns)
-                           {
-                               row.Add(col.ColumnName, dr[col]);
-
-                           }
-                           rows.Add(row);
-                           // revalidate username to b7 portal
-                           string identifier;
-                           if (TempData["identifier"] != null)
-                           {
-                               identifier = TempData["identifier"].ToString();
-                               this.revalidateUsername(identifier, model.UserAD);
-                           }
-
-                           //cek apakah UserAD ada pada M_USER_ALL_APPS
-                           if (dr[0].ToString() != null)
-                           {
-                               Session["UserAD"] = model.UserAD;
-                               Session["Username"] = dr[0].ToString();
-                               Session["NIK"] = dr[1].ToString();
-                               Session["Dept"] = dr[2].ToString();
-                               Session["Location"] = dr[3].ToString();
-                               Session["JABATAN"] = dr[4].ToString();
-                               Session.Timeout = 1000;
-
-
-                               returnValue = true;
-                           }
-                           else
-                           {
-                               returnValue = false;
-                           }
-                       }
-                       return Json(returnValue);*/
+                  
                     GetParam(model.UserAD) ;
                 }
             }

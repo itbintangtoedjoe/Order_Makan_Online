@@ -594,6 +594,10 @@
                             "className": 'dt-center',
                             "width": "40%"
                         },
+                        {
+                            "targets": [0],
+                            "orderable": false
+                        },
                     ]
                 });
 
@@ -653,6 +657,10 @@
                     "targets": '_all',
                     "className": 'dt-center',
                     "width": "40%"
+                    },
+                    {
+                        "targets": [0],
+                        "orderable":false
                     },
                     { 'visible': false, 'targets': [0] }
             ]
@@ -1658,6 +1666,9 @@
                             , number, GetTanggal(startdate, i), GetDay(startdate, i), qty, shift]).draw(false);
 
                   @*  order: [[4, 'asc']],*@
+                        
+                     
+                        
                         clearData();
 
                     }

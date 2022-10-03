@@ -473,8 +473,8 @@ namespace Order_Makan_Online.Controllers
                                        " <i>Email ini tergenerate oleh system</i>" +
                                        "<br/>" +
                                        "<i>IntranetPortal - PT Bintang Toedjoe</i>";
-                        //objsend.mailTo = (string)rows[i]["EMAIL"];
-                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailTo = (string)rows[i]["EMAIL"];
+                        //objsend.mailTo = "testing@gmail.com";
                         objsend.mailCC = null;
                         objsend.mailBCC = null;
 
@@ -558,8 +558,8 @@ namespace Order_Makan_Online.Controllers
                                        " <i>Email ini tergenerate oleh system</i>" +
                                        "<br/>" +
                                        "<i>IntranetPortal - PT Bintang Toedjoe</i>";
-                        //objsend.mailTo = (string)rows[i]["EMAIL"];
-                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailTo = (string)rows[i]["EMAIL"];
+                       // objsend.mailTo = "testing@gmail.com";
                         objsend.mailCC = null;
                         objsend.mailBCC = null;
 
@@ -637,8 +637,8 @@ namespace Order_Makan_Online.Controllers
                                        " <i>Email ini tergenerate oleh system</i>" +
                                        "<br/>" +
                                        "<i>IntranetPortal - PT Bintang Toedjoe</i>";
-                        //objsend.mailTo =(string)rows[i]["EMAIL"]; ;
-                        objsend.mailTo = "teddywibowo01@gmail.com";
+                        objsend.mailTo =(string)rows[i]["EMAIL"];
+                        //objsend.mailTo = "testing@gmail.com";
                         objsend.mailCC = null;
                         objsend.mailBCC = null;
 
@@ -721,98 +721,7 @@ namespace Order_Makan_Online.Controllers
             return Json(DAL.StoredProcedure(parameters, spname), JsonRequestBehavior.AllowGet);
 
         }
-        
-        //Function Send Email lama, tidak dipake lagi
-        public ActionResult SendEmail(EmailModel Model)
-        {
-            // looping untuk supervisor dan manager
-            var parameter = new Dictionary<string, object>
-            {
-                { "DEPT",Model.Dept},
-                {"Option",Model.Option },
-                {"Username",Model.Username }
-
-            };
-            var parameters = new DynamicParameters(parameter);
-            string Recipient = DAL.StoredProcedure(parameters, "[dbo].[SP_EMAIL]");
-
-         /*   var list = new List<Recipients>();
-            var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
-
-            foreach (var item in ((JArray)objects))
-            {
-                list.Add(new Recipients
-                {
-                    Email = item.Value<string>("Email")
-                   
-                });
-            }*/
-
-
-            var list = new List<Recipients>();
-            var objects = JsonConvert.DeserializeObject(Recipient.ToString()); // parse as array  
-
-            foreach (var item in ((JArray)objects))
-            {
-                list.Add(new Recipients
-                {
-                    Email = item.Value<string>("EMAIL")
-                });
-            }
-            foreach (var email in list)
-            {
-                try
-                {
-                    //var senderEmail = new MailAddress(Model.EmailSender, Model.Sender);
-
-                    //var receiverEmail = new MailAddress(email.Email, Model.Receiver);
-                    //if (Model.Lokasi == "PLM")
-                    //{
-                    //  receiverEmail = new MailAddress("staff.pulomas@bintang7.com", "Staff FD PLM");
-                    //}
-                    //else if (Model.Lokasi == "PLG")
-                    //{
-                    //    receiverEmail = new MailAddress("staffPDPG@bintang7.com", "Staff FD PLG");
-                    //}
-                    var sub = Model.Subject;
-                    var body = Model.Body;
-                    SmtpClient mailObj = new SmtpClient("mail.kalbe.co.id");
-                    var msg = new MailMessage();
-                    //mess.From = senderEmail;
-                    msg.From = new MailAddress("notification@bintang7.com", "Order Makan Online B7");
-                    msg.Body = body;
-                    msg.Subject = sub;
-                    //mess.Bcc.Add(senderEmail);
-                    msg.Priority = MailPriority.High;
-                    msg.IsBodyHtml = true;
-                    //msg.To.Add(receiverEmail);
-                    //msg.To.Add("teddywibowo01@gmail.com");
-                    msg.To.Add(email.Email);
-                    mailObj.Send(msg);
-
-                    return Json("success");
-                }
-                catch (Exception ex)
-                {
-                    SqlConnection conn = new SqlConnection(connectionStringSettings.ConnectionString);
-                    SqlCommand cmd = new SqlCommand("SP_CREATE_LOG", conn);
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.AddWithValue("@modul", Model.Subject);
-                    cmd.Parameters.AddWithValue("@user", Model.Sender);
-                    cmd.Parameters.AddWithValue("@message", ex.Message);
-                    conn.Open();
-                    cmd.ExecuteNonQuery();
-                    conn.Close();
-
-                    return Json("error, check log");
-                }
-
-
-            }
-
-            return Json(Recipient);
-        }
-         
+             
         public ActionResult InsertDTToDB(ListDetail Details, DynamicModel Models)
         {
             DataTable DT = new DataTable();
